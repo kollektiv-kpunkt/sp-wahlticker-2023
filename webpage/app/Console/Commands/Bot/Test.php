@@ -29,7 +29,8 @@ class Test extends Command
      */
     public function handle()
     {
-
+        $chat = TelegraphChat::find(1);
+        $chat->html("<strong>Hello!</strong>\n\nI'm here!")->send();
         return Command::SUCCESS;
     }
 }
