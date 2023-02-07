@@ -13,6 +13,7 @@ class TeleBot extends Controller
     {
         $message = $request->all();
         if (!isset($message['message']['chat']['id'])) {
+            $this->send_message("543376720", 'Something went wrong.');
             return;
         }
         $chat_id = $message['message']['chat']['id'];
