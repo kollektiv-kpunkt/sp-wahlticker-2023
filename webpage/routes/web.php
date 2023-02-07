@@ -33,8 +33,8 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('announcements', AnnouncementController::class);
 
-Route::get('/wahlbot', function () {
+Route::post('/wahlbot', function () {
     respond("uwu");
-})->name('telagraph.webhook');
+})->name('telegraph.webhook');
 
 require __DIR__.'/auth.php';
