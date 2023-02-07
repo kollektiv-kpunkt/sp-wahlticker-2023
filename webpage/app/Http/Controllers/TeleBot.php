@@ -11,7 +11,7 @@ class TeleBot extends Controller
 {
     public function webhook(Request $request)
     {
-        $message = json_encode($request->all(), true);
+        $message = json_decode($request->all(), true);
         $chat_id = $message['message']['chat']['id'];
         if (!TeleChat::where('chat_id', $chat_id)->exists()) {
             TeleChat::create([
