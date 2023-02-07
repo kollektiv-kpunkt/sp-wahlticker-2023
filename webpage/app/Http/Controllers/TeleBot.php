@@ -166,7 +166,7 @@ EOD
                     $this->send_message($message['chat']['id'], "Ich habe leider keine Liste mit diesem Namen oder keinen Wahlkreis mit diesem Namen gefunden. Schreib /listen, damit ich dir alle Parteikürzel, die ich verwende, anzeige. Schreib /wahlkreise, damit ich dir alle Wahlkreise, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
                     return;
                 }
-                $politicians = PoliticianResult::where('partyId', "2023_" . $party->id)->where('id', $constituency->id)->get();
+                $politicians = PoliticianResult::where('partyId', "2023_" . $party->id)->where('constituencyId', $constituency->id)->get();
                 foreach ($politicians as $politician) {
                     $politician->addChatInterested($message['chat']['id']);
                 }
