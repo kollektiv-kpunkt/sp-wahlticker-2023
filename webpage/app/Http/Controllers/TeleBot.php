@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 namespace App\Http\Controllers;
 
@@ -10,13 +10,20 @@ class TeleBot extends Controller
 {
     public function webhook(Request $request)
     {
-        $update = json_encode($request->all(), true);
-        Storage::disk('local')->put('telebot.json', json_encode($update, JSON_PRETTY_PRINT));
-        exit;
-        $chat_id = $update['message']['chat']['id'];
-        $message = $update['message']['text'];
-        if ($message == "/start") {
-            $this->sendMessage($chat_id, "Hello, I am a bot");
+        $message = json_encode($request->all(), true);
+        $chat_id = $message['message']['chat']['id'];
+        if (!TeleChat::where('chat_id', $chat_id)->exists()) {
+            TeleChat::create([
+                'chat_id' => $chat_id,
+                'chat_type' => $message['message']['chat']['type'],
+                'chat_title' => $message['message']['chat']['title'] ?? null,
+                'chat_username' => $message['message']['chat']['username'] ?? null,
+                'chat_first_name' => $message['message']['chat']['first_name'] ?? null,
+                'chat_last_name' => $message['message']['chat']['last_name'] ?? null,
+            ]);
+            if ($message["entities"]["type"] == "bot_command" && strpos($message["text"], "/start")) {
+            }
+            $this->send_message($chat_id, 'Hallo, ich bin der SP Wahlbot. Ich halte dich über die Resultate von Kandis auf dem Laufenden. Schreibe /start um zu beginnen.');
         }
     }
 }

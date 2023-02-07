@@ -16,9 +16,12 @@ return new class extends Migration
         Schema::create('tele_chats', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('chat_id');
+            $table->string('chat_id')->unique();
             $table->string('chat_type');
             $table->string('chat_title')->nullable();
+            $table->string('chat_username')->nullable();
+            $table->string('chat_first_name')->nullable();
+            $table->string('chat_last_name')->nullable();
         });
     }
 
