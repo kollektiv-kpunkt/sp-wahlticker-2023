@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TeleChat;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class TeleBot extends Controller
 {
@@ -25,5 +26,15 @@ class TeleBot extends Controller
             }
             $this->send_message($chat_id, 'Hallo, ich bin der SP Wahlbot. Ich halte dich über die Resultate von Kandis auf dem Laufenden. Schreibe /start um zu beginnen.');
         }
+    }
+
+    public function send_message($chat_id, $content) {
+        $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage?chat_id=" . $chat_id . "&text=" . urlencode($content);
+        try {
+            $response = Http::get($url);
+        } catch (\Exception $e) {
+            $response = $e->getMessage();
+        }
+        return $response;
     }
 }
