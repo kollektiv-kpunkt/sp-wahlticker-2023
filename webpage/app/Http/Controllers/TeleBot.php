@@ -61,18 +61,66 @@ EOD
                 $politician = PoliticianResult::where('name', 'LIKE', '%' . $kandiname . '%')->get();
                 if ($politician && count($politician) == 1) {
                     $politician = $politician->first();
-                    $politician->chats_interested = array_merge($politician->chats_interested ?? [], [$message['chat']['id']]);
-                    $politician->save();
-                    $this->send_message($message['chat']['id'], "Ich habe {$politician->name} von der Liste " . substr($politician->partyId, 5) . " ({$politician->party->name}) gefunden. Ich werde dich zu dieser*diesem Kandi auf dem Laufenden halten.");
+                    $added = $politician->addChatInterested($message['chat']['id']);
+                    if (!$added) {
+                        $this->send_message($message['chat']['id'], "{$politician->name} ist bereits auf deiner Liste. Falls du die Kandi von der Liste entfernen willst, schreibe /entferneKandi {$politician->politicianId}.");
+                    } else {
+                        $this->send_message($message['chat']['id'], "Ich habe {$politician->name} von der Liste " . substr($politician->partyId, 5) . " ({$politician->party->name}) gefunden. Ich werde dich zu dieser*diesem Kandi auf dem Laufenden halten.");
+                    }
                     return;
                 } else if ($politician && count($politician) == 0) {
-                    $this->send_message($message['chat']['id'], "Ich habe leider keinen Kandi mit diesem Namen gefunden. Schreib /help um zu sehen, was ich kann.");
+                    $this->send_message($message['chat']['id'],
+<<<EOD
+Ich habe leider keinen Kandi mit diesem Namen gefunden. Bitte prüfe kurz auf Tippfehler. Wenn du die Kandi über ihre Kandinummer suchen willst, kannst du das mit dem Befehl <b>/kandiNr KANDINUMMER</b> tun.
+
+Die Kandinummer setzt sich aus der Wahlkreisnummer, der Listennummer und dem Listenplatz zusammen. <a href='https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/kantons-regierungsratswahlen.html#-1097010600'>Die Wahlkreisnummern findest du hier</a>. Wenn es mehr als 10 Sitze auf der Liste gibt, ist die Platznummer immer zweistellig (z.B. 01, 02, 03 etc.). Für Lou Muster aus dem Wahlkreis Dietikon der Liste 20 auf Listenplatz 5 lautet die Listennummer "7_2005". Wenn du Lou also so suchen willst, schreib <b>/kandiNr 7_205</b>.
+
+Schreib /help um zu sehen, was ich kann.
+EOD
+);
                     return;
                 } else {
                     $this->send_message($message['chat']['id'], "Ich habe mehrere Kandis mit diesem Namen gefunden. Schreib /help um zu sehen, was ich kann.");
                     return;
                 }
                 break;
+
+            case "/kandiNr":
+                $kandiNr = substr($message["text"], $message["entities"][0]["length"] + 1);
+                $politician = PoliticianResult::where('politicianId', $kandiNr)->get();
+                if ($politician && count($politician) == 1) {
+                    $politician = $politician->first();
+                    $added = $politician->addChatInterested($message['chat']['id']);
+                    if (!$added) {
+                        $this->send_message($message['chat']['id'], "{$politician->name} ist bereits auf deiner Liste. Falls du die Kandi von der Liste entfernen willst, schreibe /entferneKandi {$politician->politicianId}.");
+                    } else {
+                        $this->send_message($message['chat']['id'], "Ich habe {$politician->name} von der Liste " . substr($politician->partyId, 5) . " ({$politician->party->name}) gefunden. Ich werde dich zu dieser*diesem Kandi auf dem Laufenden halten.");
+                    }
+                    return;
+                } else if ($politician && count($politician) == 0) {
+                    $this->send_message($message['chat']['id'], "Ich habe leider keinen Kandi mit dieser Kandinummer gefunden. Schreib /help um zu sehen, was ich kann.");
+                    return;
+                }
+                break;
+
+            case "/entferneKandi":
+                $kandiNr = substr($message["text"], $message["entities"][0]["length"] + 1);
+                $politician = PoliticianResult::where('politicianId', $kandiNr)->get();
+                if ($politician && count($politician) == 1) {
+                    $politician = $politician->first();
+                    $removed = $politician->removeChatInterested($message['chat']['id']);
+                    if (!$removed) {
+                        $this->send_message($message['chat']['id'], "{$politician->name} ist nicht auf deiner Liste. Falls du die Kandi hinzufügen willst, schreibe /kandiNr {$politician->politicianId}.");
+                    } else {
+                        $this->send_message($message['chat']['id'], "Ich habe {$politician->name} von deiner Liste entfernt.");
+                    }
+                    return;
+                } else if ($politician && count($politician) == 0) {
+                    $this->send_message($message['chat']['id'], "Ich habe leider keinen Kandi mit dieser Kandinummer gefunden. Schreib /help um zu sehen, was ich kann.");
+                    return;
+                }
+                break;
+
             case "/yourCreator":
                 if (!get_option("creator")) {
                     set_option("creator", $message['from']['id']);
@@ -83,6 +131,7 @@ EOD
                 }
                 return;
 
+
             case "/registerChannel":
                 if ($message["from"]["id"] == get_option("creator")) {
                     set_option("telegram_channel_id", $message['chat']['id']);
@@ -92,13 +141,18 @@ EOD
                 }
                 return;
                 break;
+
             case "/echoChannel":
                 $this->send_message($message['chat']['id'], "Folgende Channel-ID ist registriert: " . get_option("telegram_channel_id"));
                 return;
                 break;
+
+
             case '/help':
                 $this->send_message($message['chat']['id'], 'Ich bin der SP Wahlbot. Ich halte dich über die Resultate von Kandis auf dem Laufenden. Schreibe /start um zu beginnen.');
                 break;
+
+
             default:
                 $this->send_message($message['chat']['id'], 'Ich kenne diesen Befehl nicht. Schreibe /help um zu sehen, was ich kann.');
                 break;
