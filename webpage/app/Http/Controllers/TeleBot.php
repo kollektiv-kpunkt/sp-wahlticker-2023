@@ -74,11 +74,13 @@ EOD
                 }
                 break;
             case "/yourCreator":
-                if (!get_option("creator"))
+                if (!get_option("creator")) {
                     set_option("creator", $message['from']['id']);
                     $this->send_message($message['chat']['id'], "Du wurdest als Admin der App " . env("APP_NAME") . " registriert.");
-                else
+
+                } else {
                     $this->send_message($message['chat']['id'], "Mein Creator ist " . get_option("creator"));
+                }
                 return;
 
             case "/registerChannel":
