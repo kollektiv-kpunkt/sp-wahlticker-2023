@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::match(['get', 'post'], '/wahlbot', function (WebhookHandler $handler) {
+Route::match(['get', 'post'], '/wahlbot', function () {
 })->name('telegraph.webhook');
 
 // Route::get('/', function () {
