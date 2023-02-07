@@ -21,21 +21,21 @@ use Illuminate\Support\Facades\Storage;
 Route::match(['get', 'post'], '/wahlbot', function (WebhookHandler $handler) {
 })->name('telegraph.webhook');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/admin', function () {
-    $announcements = Announcement::orderBy('created_at', 'desc')->paginate(7);
-    return view('admin', compact('announcements'));
-})->middleware(['auth', 'verified'])->name('admin');
+// Route::get('/admin', function () {
+//     $announcements = Announcement::orderBy('created_at', 'desc')->paginate(7);
+//     return view('admin', compact('announcements'));
+// })->middleware(['auth', 'verified'])->name('admin');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
-Route::resource('announcements', AnnouncementController::class);
+// Route::resource('announcements', AnnouncementController::class);
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
