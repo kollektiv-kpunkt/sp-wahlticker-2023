@@ -12,5 +12,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/bot', function (Request $request) {
-    return "Hello World!"
+    return "Hello World!";
 });
