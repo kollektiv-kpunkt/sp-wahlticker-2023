@@ -7,7 +7,7 @@ use App\Http\Controllers\AnnouncementController;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Support\Facades\Storage;
-use \DefStudio\Telegraph\Handlers\WebhookHandler
+use \DefStudio\Telegraph\Handlers\WebhookHandler;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
