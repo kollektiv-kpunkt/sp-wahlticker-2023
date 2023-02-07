@@ -16,6 +16,10 @@ use App\Http\Controllers\AnnouncementController;
 |
 */
 
+Route::match(['get', 'post'], '/wahlbot', function () {
+    return "Hello world";
+})->name('telegraph.webhook');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -32,9 +36,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('announcements', AnnouncementController::class);
-
-Route::match(['get', 'post'], '/wahlbot', function () {
-    return "Hello world";
-})->name('telegraph.webhook');
 
 require __DIR__.'/auth.php';
