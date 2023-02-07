@@ -1,0 +1,1549 @@
+[
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 5580,
+    "voteShare": 13.15
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 10849,
+    "voteShare": 25.56
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 7231,
+    "voteShare": 17.04
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 5849,
+    "voteShare": 13.78
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 7797,
+    "voteShare": 18.37
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 1704,
+    "voteShare": 4.01
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 595,
+    "voteShare": 1.4
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 2404,
+    "voteShare": 5.66
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 232,
+    "voteShare": 0.55
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 1,
+    "votes": 200,
+    "voteShare": 0.47
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 33243,
+    "voteShare": 14.18
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 69740,
+    "voteShare": 29.75
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 23140,
+    "voteShare": 9.87
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 28414,
+    "voteShare": 12.12
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 40286,
+    "voteShare": 17.18
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 9822,
+    "voteShare": 4.19
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 5585,
+    "voteShare": 2.38
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 18905,
+    "voteShare": 8.06
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 417,
+    "voteShare": 0.18
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 152,
+    "voteShare": 0.06
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 3117,
+    "voteShare": 1.33
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 2,
+    "votes": 1620,
+    "voteShare": 0.69
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 2730,
+    "voteShare": 6.53
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 13410,
+    "voteShare": 32.06
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 3515,
+    "voteShare": 8.4
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 6252,
+    "voteShare": 14.94
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 7627,
+    "voteShare": 18.23
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 598,
+    "voteShare": 1.43
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 328,
+    "voteShare": 0.78
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 6704,
+    "voteShare": 16.03
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 115,
+    "voteShare": 0.27
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 3,
+    "votes": 555,
+    "voteShare": 1.33
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 19274,
+    "voteShare": 11.67
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 47375,
+    "voteShare": 28.68
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 23499,
+    "voteShare": 14.23
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 23378,
+    "voteShare": 14.15
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 27916,
+    "voteShare": 16.9
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 4564,
+    "voteShare": 2.76
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 3175,
+    "voteShare": 1.92
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 13554,
+    "voteShare": 8.21
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 1255,
+    "voteShare": 0.76
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 271,
+    "voteShare": 0.16
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 88,
+    "voteShare": 0.05
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 4,
+    "votes": 815,
+    "voteShare": 0.49
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 34301,
+    "voteShare": 19.44
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 48342,
+    "voteShare": 27.4
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 19447,
+    "voteShare": 11.02
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 22792,
+    "voteShare": 12.92
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 25011,
+    "voteShare": 14.18
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 7396,
+    "voteShare": 4.19
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 7213,
+    "voteShare": 4.09
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 8081,
+    "voteShare": 4.58
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 1693,
+    "voteShare": 0.96
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 1118,
+    "voteShare": 0.63
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 6,
+    "votes": 1048,
+    "voteShare": 0.59
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 41772,
+    "voteShare": 29.54
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 26211,
+    "voteShare": 18.54
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 24485,
+    "voteShare": 17.32
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 17739,
+    "voteShare": 12.55
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 8892,
+    "voteShare": 6.29
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 11540,
+    "voteShare": 8.16
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 4611,
+    "voteShare": 3.26
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 2050,
+    "voteShare": 1.45
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 2243,
+    "voteShare": 1.59
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 1851,
+    "voteShare": 1.31
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 7,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 18920,
+    "voteShare": 26.51
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 12820,
+    "voteShare": 17.96
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 10713,
+    "voteShare": 15.01
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 10126,
+    "voteShare": 14.19
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 7792,
+    "voteShare": 10.92
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 1986,
+    "voteShare": 2.78
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 6127,
+    "voteShare": 8.58
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 636,
+    "voteShare": 0.89
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 607,
+    "voteShare": 0.85
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 1643,
+    "voteShare": 2.3
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 8,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 89214,
+    "voteShare": 24
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 61815,
+    "voteShare": 16.63
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 78662,
+    "voteShare": 21.16
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 43873,
+    "voteShare": 11.8
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 37780,
+    "voteShare": 10.16
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 27180,
+    "voteShare": 7.31
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 16833,
+    "voteShare": 4.53
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 5244,
+    "voteShare": 1.41
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 6038,
+    "voteShare": 1.62
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 5141,
+    "voteShare": 1.38
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 9,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 82409,
+    "voteShare": 26.86
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 43760,
+    "voteShare": 14.26
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 77846,
+    "voteShare": 25.37
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 41086,
+    "voteShare": 13.39
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 28487,
+    "voteShare": 9.28
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 13295,
+    "voteShare": 4.33
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 7609,
+    "voteShare": 2.48
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 3363,
+    "voteShare": 1.1
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 3245,
+    "voteShare": 1.06
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 5718,
+    "voteShare": 1.86
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 10,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 64631,
+    "voteShare": 30.23
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 27408,
+    "voteShare": 12.82
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 28375,
+    "voteShare": 13.27
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 21575,
+    "voteShare": 10.09
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 26063,
+    "voteShare": 12.19
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 12389,
+    "voteShare": 5.79
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 12221,
+    "voteShare": 5.72
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 3329,
+    "voteShare": 1.56
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 4402,
+    "voteShare": 2.06
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 13415,
+    "voteShare": 6.27
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 11,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 102698,
+    "voteShare": 26.71
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 65469,
+    "voteShare": 17.03
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 57068,
+    "voteShare": 14.84
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 58045,
+    "voteShare": 15.1
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 40767,
+    "voteShare": 10.6
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 18702,
+    "voteShare": 4.86
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 13042,
+    "voteShare": 3.39
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 6251,
+    "voteShare": 1.63
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 13008,
+    "voteShare": 3.38
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 9449,
+    "voteShare": 2.46
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 12,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 29008,
+    "voteShare": 30.84
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 13144,
+    "voteShare": 13.97
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 13015,
+    "voteShare": 13.84
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 10826,
+    "voteShare": 11.51
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 9076,
+    "voteShare": 9.65
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 2525,
+    "voteShare": 2.68
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 8862,
+    "voteShare": 9.42
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 1124,
+    "voteShare": 1.2
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 1918,
+    "voteShare": 2.04
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 4557,
+    "voteShare": 4.85
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 13,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 59857,
+    "voteShare": 18.66
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 77401,
+    "voteShare": 24.12
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 34094,
+    "voteShare": 10.63
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 46912,
+    "voteShare": 14.62
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 48921,
+    "voteShare": 15.25
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 12115,
+    "voteShare": 3.78
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 17831,
+    "voteShare": 5.56
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 12836,
+    "voteShare": 4
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 5115,
+    "voteShare": 1.59
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 5779,
+    "voteShare": 1.8
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 14,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 33695,
+    "voteShare": 34.92
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 11249,
+    "voteShare": 11.66
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 13602,
+    "voteShare": 14.1
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 13436,
+    "voteShare": 13.92
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 9203,
+    "voteShare": 9.54
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 2915,
+    "voteShare": 3.02
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 7730,
+    "voteShare": 8.01
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 632,
+    "voteShare": 0.65
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 1352,
+    "voteShare": 1.4
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 2677,
+    "voteShare": 2.77
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 15,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 12344,
+    "voteShare": 37.09
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 4757,
+    "voteShare": 14.29
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 5252,
+    "voteShare": 15.78
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 2867,
+    "voteShare": 8.61
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 3264,
+    "voteShare": 9.81
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 532,
+    "voteShare": 1.6
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 1480,
+    "voteShare": 4.45
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 343,
+    "voteShare": 1.03
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 1535,
+    "voteShare": 4.61
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 910,
+    "voteShare": 2.73
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 16,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 137008,
+    "voteShare": 31.8
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 68898,
+    "voteShare": 15.99
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 66706,
+    "voteShare": 15.48
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 53002,
+    "voteShare": 12.3
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 35618,
+    "voteShare": 8.27
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 15435,
+    "voteShare": 3.58
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 22382,
+    "voteShare": 5.2
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 5566,
+    "voteShare": 1.29
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 9539,
+    "voteShare": 2.21
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 16653,
+    "voteShare": 3.87
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 17,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 1,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 63440,
+    "voteShare": 39.33
+  },
+  {
+    "partyID": 2,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 21151,
+    "voteShare": 13.11
+  },
+  {
+    "partyID": 3,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 20957,
+    "voteShare": 12.99
+  },
+  {
+    "partyID": 4,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 18755,
+    "voteShare": 11.63
+  },
+  {
+    "partyID": 5,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 14395,
+    "voteShare": 8.93
+  },
+  {
+    "partyID": 6,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 5778,
+    "voteShare": 3.58
+  },
+  {
+    "partyID": 7,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 4396,
+    "voteShare": 2.73
+  },
+  {
+    "partyID": 8,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 1359,
+    "voteShare": 0.84
+  },
+  {
+    "partyID": 9,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 2663,
+    "voteShare": 1.65
+  },
+  {
+    "partyID": 10,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 8392,
+    "voteShare": 5.2
+  },
+  {
+    "partyID": 11,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 12,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 0,
+    "voteShare": 0
+  },
+  {
+    "partyID": 13,
+    "year": 2019,
+    "constituencyID": 18,
+    "votes": 0,
+    "voteShare": 0
+  }
+]

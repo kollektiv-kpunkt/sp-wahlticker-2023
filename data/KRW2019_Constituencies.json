@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Stadt Zürich, Stadtkreise 1 und 2",
+    "Seats_2023": 5,
+    "Seats_2019": 5
+  },
+  {
+    "id": 2,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Stadt Zürich, Stadtkreise 3 und 9",
+    "Seats_2023": 12,
+    "Seats_2019": 12
+  },
+  {
+    "id": 3,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Stadt Zürich, Stadtkreise 4 und 5",
+    "Seats_2023": 5,
+    "Seats_2019": 5
+  },
+  {
+    "id": 4,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Stadt Zürich, Stadtkreise 6 und 10",
+    "Seats_2023": 8,
+    "Seats_2019": 9
+  },
+  {
+    "id": 5,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Stadt Zürich, Stadtkreise 7 und 8",
+    "Seats_2023": 6,
+    "Seats_2019": 6
+  },
+  {
+    "id": 6,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Stadt Zürich, Stadtkreise 11 und 12",
+    "Seats_2023": 12,
+    "Seats_2019": 12
+  },
+  {
+    "id": 7,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Dietikon",
+    "Seats_2023": 11,
+    "Seats_2019": 11
+  },
+  {
+    "id": 8,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Affoltern",
+    "Seats_2023": 7,
+    "Seats_2019": 6
+  },
+  {
+    "id": 9,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Horgen",
+    "Seats_2023": 15,
+    "Seats_2019": 15
+  },
+  {
+    "id": 10,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Meilen",
+    "Seats_2023": 12,
+    "Seats_2019": 12
+  },
+  {
+    "id": 11,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Hinwil",
+    "Seats_2023": 11,
+    "Seats_2019": 11
+  },
+  {
+    "id": 12,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Uster",
+    "Seats_2023": 16,
+    "Seats_2019": 16
+  },
+  {
+    "id": 13,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Pfäffikon",
+    "Seats_2023": 7,
+    "Seats_2019": 7
+  },
+  {
+    "id": 14,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Stadt Winterthur",
+    "Seats_2023": 13,
+    "Seats_2019": 13
+  },
+  {
+    "id": 15,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Winterthur-Land",
+    "Seats_2023": 7,
+    "Seats_2019": 7
+  },
+  {
+    "id": 16,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Andelfingen",
+    "Seats_2023": 4,
+    "Seats_2019": 4
+  },
+  {
+    "id": 17,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Bülach",
+    "Seats_2023": 18,
+    "Seats_2019": 18
+  },
+  {
+    "id": 18,
+    "created_at": "2023-02-06 19:42:00",
+    "updated_at": "2023-02-06 19:42:00",
+    "name": "Dielsdorf",
+    "Seats_2023": 11,
+    "Seats_2019": 11
+  }
+]

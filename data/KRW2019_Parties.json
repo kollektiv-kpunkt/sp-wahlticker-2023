@@ -1,0 +1,120 @@
+[
+ {
+  "partyId": "2019_1",
+  "name": "SVP – Schweizerische Volkspartei",
+  "abbreviation": "SVP",
+  "color": "#3B571C",
+  "seats_2019": 45,
+  "seats_2015": 54,
+  "voteShare_2019": 24.46,
+  "voteShare_2015": 30.02
+ },
+ {
+  "partyId": "2019_2",
+  "name": "SP Sozialdemokratische Partei",
+  "abbreviation": "SP",
+  "color": "#D93F3C",
+  "seats_2019": 35,
+  "seats_2015": 36,
+  "voteShare_2019": 19.31,
+  "voteShare_2015": 19.67
+ },
+ {
+  "partyId": "2019_3",
+  "name": "FDP.Die Liberalen",
+  "abbreviation": "FDP",
+  "color": "#15549D",
+  "seats_2019": 23,
+  "seats_2015": 31,
+  "voteShare_2019": 15.66,
+  "voteShare_2015": 17.33
+ },
+ {
+  "partyId": "2019_4",
+  "name": "Grünliberale Partei (GLP)",
+  "abbreviation": "GLP",
+  "color": "#A2CB4F",
+  "seats_2019": 23,
+  "seats_2015": 14,
+  "voteShare_2019": 12.91,
+  "voteShare_2015": 7.64
+ },
+ {
+  "partyId": "2019_5",
+  "name": "Grüne",
+  "abbreviation": "Grüne",
+  "color": "#4E751D",
+  "seats_2019": 22,
+  "seats_2015": 13,
+  "voteShare_2019": 11.91,
+  "voteShare_2015": 7.22
+ },
+ {
+  "partyId": "2019_6",
+  "name": "CVP",
+  "abbreviation": "CVP",
+  "color": "#E78222",
+  "seats_2019": 8,
+  "seats_2015": 14,
+  "voteShare_2019": 5.82,
+  "voteShare_2015": 7.5
+ },
+ {
+  "partyId": "2019_7",
+  "name": "Evangelische Volkspartei (EVP)",
+  "abbreviation": "EVP",
+  "color": "#FFFB3F",
+  "seats_2019": 8,
+  "seats_2015": 8,
+  "voteShare_2019": 4.24,
+  "voteShare_2015": 4.27
+ },
+ {
+  "partyId": "2019_8",
+  "name": "AL-Alternative Liste",
+  "abbreviation": "AL",
+  "color": "#DE388A",
+  "seats_2019": 6,
+  "seats_2015": 5,
+  "voteShare_2019": 2.15,
+  "voteShare_2015": 2.98
+ },
+ {
+  "partyId": "2019_9",
+  "name": "Bürgerlich-Demokratische Partei BDP",
+  "abbreviation": "BDP",
+  "color": "#FDDB36",
+  "seats_2019": 0,
+  "seats_2015": 5,
+  "voteShare_2019": 1.53,
+  "voteShare_2015": 2.62
+ },
+ {
+  "partyId": "2019_10",
+  "name": "EDU Eidgenössisch-Demokratische Union",
+  "abbreviation": "EDU",
+  "color": "#D6311B",
+  "seats_2019": 4,
+  "seats_2015": 5,
+  "voteShare_2019": 2.27,
+  "voteShare_2015": 2.66
+ },
+ {
+  "partyId": "2019_11",
+  "name": "HELVIDA",
+  "abbreviation": "Helvida",
+  "color": "#696969"
+ },
+ {
+  "partyId": "2019_12",
+  "name": "die Guten",
+  "abbreviation": "die Guten",
+  "color": "#696969"
+ },
+ {
+  "partyId": "2019_13",
+  "name": "Partei der Arbeit (PdA)",
+  "abbreviation": "PdA",
+  "color": "#BC2925"
+ }
+]

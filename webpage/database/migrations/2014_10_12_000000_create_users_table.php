@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -21,7 +22,18 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('role')->default(0);
         });
+
+        DB::table('users')->insert([
+            'name' => 'Ticker Admin',
+            'email' => 'ticker@wahlen-23.ch',
+            'password' => bcrypt(env("ADMIN_PW")),
+            "created_at" =>  \Carbon\Carbon::now(),
+            "updated_at" => \Carbon\Carbon::now(),
+            "email_verified_at" => \Carbon\Carbon::now(),
+            "role" => 1
+        ]);
     }
 
     /**
