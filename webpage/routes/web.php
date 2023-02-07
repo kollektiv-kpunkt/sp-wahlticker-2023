@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('announcements', AnnouncementController::class);
 
 Route::match(['get', 'post'], '/wahlbot', function () {
-    respond("uwu");
+    return "Hello world";
 })->name('telegraph.webhook');
 
 require __DIR__.'/auth.php';
