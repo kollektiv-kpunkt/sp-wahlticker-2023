@@ -160,6 +160,10 @@ EOD
             case "/kandiListeWahlkreis":
                 $partyAbbreviation = explode(" ", substr($message["text"], $message["entities"][0]["length"] + 1))[0];
                 $constituencyName = explode(" ", substr($message["text"], $message["entities"][0]["length"] + 1))[1];
+                dd([
+                    $partyAbbreviation,
+                    $constituencyName
+                ]);
                 $party = Party::where('abbreviation', 'LIKE', '%' . $partyAbbreviation . '%')->first();
                 $constituency = Constituency::where('name', 'LIKE', '%' . $constituencyName . '%')->first();
                 if (!$party || !$constituency) {
