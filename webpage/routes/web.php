@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('announcements', AnnouncementController::class);
 
-Route::post('/wahlbot', function () {
+Route::match(['get', 'post'], '/wahlbot', function () {
     respond("uwu");
 })->name('telegraph.webhook');
 
