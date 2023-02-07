@@ -26,7 +26,7 @@ class TeleBot extends Controller
                 'chat_first_name' => $message['message']['chat']['first_name'] ?? null,
                 'chat_last_name' => $message['message']['chat']['last_name'] ?? null,
             ]);
-            if ($message["entities"]["type"] == "bot_command" && strpos($message["text"], "/start")) {
+            if (isset($message["entities"]) && $message["entities"]["type"] == "bot_command" && strpos($message["text"], "/start")) {
             }
             $this->send_message($chat_id, 'Hallo, ich bin der SP Wahlbot. Ich halte dich über die Resultate von Kandis auf dem Laufenden. Schreibe /start um zu beginnen.');
         }
