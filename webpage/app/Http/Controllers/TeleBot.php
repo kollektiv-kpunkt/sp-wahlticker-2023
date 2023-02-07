@@ -7,6 +7,7 @@ use App\Models\TeleChat;
 use App\Models\PoliticianResult;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use App\Models\Party;
 
 class TeleBot extends Controller
 {
@@ -103,6 +104,22 @@ EOD
                 }
                 break;
 
+            case "/kandiListe":
+                $listeName = substr($message["text"], $message["entities"][0]["length"] + 1);
+                $party = Party::where('abbreviation', 'LIKE', '%' . $listeName . '%')->first();
+                if ($party) {
+                    $politicians = PoliticianResult::where('partyId', $party->partyId)->get();
+                    foreach ($politicians as $politician) {
+                        $politician->addChatInterested($message['chat']['id']);
+                    }
+                    $this->send_message($message['chat']['id'], "Ich habe die Liste {$party->name} gefunden. Ich werde dich zu den Kandis dieser Liste auf dem Laufenden halten.");
+                    return;
+                } else {
+                    $this->send_message($message['chat']['id'], "Ich habe leider keine Liste mit diesem Namen gefunden. Schreib /listen, damit ich dir alle Parteikürzel, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
+                    return;
+                }
+
+
             case "/entferneKandi":
                 $kandiNr = substr($message["text"], $message["entities"][0]["length"] + 1);
                 $politician = PoliticianResult::where('politicianId', $kandiNr)->get();
@@ -117,6 +134,21 @@ EOD
                     return;
                 } else if ($politician && count($politician) == 0) {
                     $this->send_message($message['chat']['id'], "Ich habe leider keinen Kandi mit dieser Kandinummer gefunden. Schreib /help um zu sehen, was ich kann.");
+                    return;
+                }
+                break;
+
+            case "/meineKandis":
+                $politicians = PoliticianResult::where('chats_interested', "LIKE", "%{$message['chat']['id']}%")->get();
+                if (count($politicians) == 0) {
+                    $this->send_message($message['chat']['id'], "Du hast noch keine Kandis auf deiner Liste. Füge welche hinzu, indem du /kandi oder /kandiNr verwendest. Schreib /help um zu sehen, was ich kann.");
+                    return;
+                } else {
+                    $text = "Du hast folgende Kandis auf deiner Liste:\n\n";
+                    foreach ($politicians as $politician) {
+                        $text .= "- <b>{$politician->name}</b> von der Liste " . substr($politician->partyId, 5) . " ({$politician->party->name}) (entfernen mit /entferneKandi {$politician->politicianId})\n\n";
+                    }
+                    $this->send_message($message['chat']['id'], $text);
                     return;
                 }
                 break;
