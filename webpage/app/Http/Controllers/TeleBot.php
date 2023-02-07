@@ -10,7 +10,7 @@ class TeleBot extends Controller
 {
     public function webhook(Request $request)
     {
-        $update = json_decode($request->all(), true);
+        $update = json_encode($request->all(), true);
         Storage::disk('local')->put('telebot.json', json_encode($update, JSON_PRETTY_PRINT));
         exit;
         $chat_id = $update['message']['chat']['id'];
