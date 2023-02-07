@@ -19,7 +19,7 @@ use App\Http\Controllers\TeleBot;
 
 Route::match(['get', 'post'], '/wahlbot', function () {
     $telebot = new TeleBot();
-    $telebot->webhook();
+    $telebot->webhook(request());
 })->name('telegraph.webhook');
 
 Route::get('/', function () {
