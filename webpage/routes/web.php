@@ -19,7 +19,7 @@ use DefStudio\Telegraph\Facades\TelegraphChat;
 */
 
 Route::match(['get', 'post'], '/wahlbot', function () {
-    $bot = TelegraphBot::find(1);
+    $bot = TelegraphChat::find(1);
     $bot->html(json_encode(request()->all()))->send();
 })->name('telegraph.webhook');
 
