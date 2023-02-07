@@ -157,6 +157,19 @@ EOD
                 $this->send_message($message['chat']['id'], "Ich verwende folgende Wahlkreise:\n" . implode("\n", $constituencyNames));
                 return;
 
+            case "/kandiListeWahlkreis":
+                $partyAbbreviation = explode(" ", substr($message["text"], $message["entities"][0]["length"] + 1))[0];
+                $constituencyName = explode(" ", substr($message["text"], $message["entities"][0]["length"] + 1))[1];
+                $party = Party::where('abbreviation', 'LIKE', '%' . $partyAbbreviation . '%')->first();
+                $constituency = Constituency::where('name', 'LIKE', '%' . $constituencyName . '%')->first();
+                $politicians = PoliticianResult::where('partyId', "2023_" . $party->id)->where('id', $constituency->id)->get();
+                foreach ($politicians as $politician) {
+                    $politician->addChatInterested($message['chat']['id']);
+                }
+                $this->send_message($message['chat']['id'], "Ich habe die Liste {$party->name} im Wahlkreis {$constituency->name} gefunden. Ich werde dich zu den Kandis dieser Liste auf dem Laufenden halten.");
+                return;
+                break;
+
 
             case "/entferneKandi":
                 $kandiNr = substr($message["text"], $message["entities"][0]["length"] + 1);
