@@ -7,7 +7,7 @@ use App\Http\Controllers\AnnouncementController;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Support\Facades\Storage;
-
+use \DefStudio\Telegraph\Handlers\WebhookHandler
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::match(['get', 'post'], '/wahlbot', function () {
-    Storage::disk('local')->put('wahlbot.json', json_encode(request()->all(), JSON_PRETTY_PRINT));
+Route::match(['get', 'post'], '/wahlbot', function (WebhookHandler $handler) {
+    $handler->handle();
 })->name('telegraph.webhook');
 
 Route::get('/', function () {
