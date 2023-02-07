@@ -78,6 +78,10 @@ EOD
                 $this->send_message($message['chat']['id'], "Ich habe diesen Channel als Wahlchannel registriert.");
                 return;
                 break;
+            case "/echoChannel":
+                $this->send_message($message['chat']['id'], "Folgende Channel-ID ist registriert: " . get_option("telegram_channel_id"));
+                return;
+                break;
             case '/help':
                 $this->send_message($message['chat']['id'], 'Ich bin der SP Wahlbot. Ich halte dich über die Resultate von Kandis auf dem Laufenden. Schreibe /start um zu beginnen.');
                 break;
