@@ -73,6 +73,14 @@ EOD
                     return;
                 }
                 break;
+            case "/yourCreator":
+                if (!get_option("creator"))
+                    set_option("creator", $message['from']['id']);
+                    $this->send_message($message['chat']['id'], "Du wurdest als Admin der App " . env("APP_NAME") . " registriert.");
+                else
+                    $this->send_message($message['chat']['id'], "Mein Creator ist " . get_option("creator"));
+                return;
+
             case "/registerChannel":
                 set_option("telegram_channel_id", $message['chat']['id']);
                 $this->send_message($message['chat']['id'], "Ich habe diesen Channel als Wahlchannel registriert.");
