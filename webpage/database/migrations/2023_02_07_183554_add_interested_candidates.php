@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("tele_chats", function(Blueprint $table) {
-            $table->json('interested_candidates')->nullable()->default(null);
+        Schema::table("politician_results", function(Blueprint $table) {
+            $table->json('chats_interested')->nullable()->default(null);
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table("tele_chats", function(Blueprint $table) {
-            $table->dropColumn('interested_candidates');
+        Schema::table("politician_results", function(Blueprint $table) {
+            $table->dropColumn('chats_interested');
         });
     }
 };

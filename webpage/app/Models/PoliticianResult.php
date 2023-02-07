@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Party;
 
 class PoliticianResult extends Model
 {
@@ -12,11 +13,24 @@ class PoliticianResult extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'politician_id',
-        'constituency_id',
-        'party_id',
+        'politicianId',
+        "name",
+        "partyId",
+        'constituencyId',
         'votes',
-        'percentage',
+        'initialPosition',
+        'finalPosition',
         'elected',
+        "chats_interested"
     ];
+
+    protected $casts = [
+        'elected' => 'boolean',
+        "chats_interested" => "array"
+    ];
+
+    public function party()
+    {
+        return $this->belongsTo(Party::class, "partyId", "partyId");
+    }
 }
