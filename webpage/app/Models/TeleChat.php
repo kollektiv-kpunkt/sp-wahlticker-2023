@@ -10,7 +10,7 @@ class TeleChat extends Model
     use HasFactory;
     public $table = 'tele_chats';
     public $timestamps = true;
-    
+
     protected $fillable = [
         'chat_id',
         'chat_type',
@@ -18,5 +18,10 @@ class TeleChat extends Model
         'chat_username',
         'chat_first_name',
         'chat_last_name',
+        'interested_candidates',
+    ];
+
+    protected $casts = [
+        'interested_candidates' => 'array',
     ];
 }

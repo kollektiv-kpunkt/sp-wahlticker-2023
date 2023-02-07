@@ -11,24 +11,26 @@ class TeleBot extends Controller
 {
     public function webhook(Request $request)
     {
-        $message = $request->all();
-        if (!isset($message['message']['chat']['id'])) {
+        $message = $request->all()['message'];
+        if (!isset($message['chat']['id'])) {
             $this->send_message("543376720", 'Something went wrong.');
             return;
         }
-        $chat_id = $message['message']['chat']['id'];
+        $chat_id = $message['chat']['id'];
         if (!TeleChat::where('chat_id', $chat_id)->exists()) {
             TeleChat::create([
                 'chat_id' => $chat_id,
-                'chat_type' => $message['message']['chat']['type'],
-                'chat_title' => $message['message']['chat']['title'] ?? null,
-                'chat_username' => $message['message']['chat']['username'] ?? null,
-                'chat_first_name' => $message['message']['chat']['first_name'] ?? null,
-                'chat_last_name' => $message['message']['chat']['last_name'] ?? null,
+                'chat_type' => $message['chat']['type'],
+                'chat_title' => $message['chat']['title'] ?? null,
+                'chat_username' => $message['chat']['username'] ?? null,
+                'chat_first_name' => $message['chat']['first_name'] ?? null,
+                'chat_last_name' => $message['chat']['last_name'] ?? null,
             ]);
-            if (isset($message["entities"]) && $message["entities"]["type"] == "bot_command" && strpos($message["text"], "/start")) {
-            }
+        }
+        if (!isset($message["entities"])) {
             $this->send_message($chat_id, 'Hallo, ich bin der SP Wahlbot. Ich halte dich über die Resultate von Kandis auf dem Laufenden. Schreibe /start um zu beginnen.');
+        } else {
+            $this->handle_command($message);
         }
     }
 
@@ -40,5 +42,11 @@ class TeleBot extends Controller
             $response = $e->getMessage();
         }
         return $response;
+    }
+
+    public function handle_command($message) {
+        $command = substr(stripslashes($message['text']), $message['entities'][0]['offset'], $message['entities'][0]['length']);
+
+        $this->send_message($message['chat']['id'], 'Command: ' . $command);
     }
 }
