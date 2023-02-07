@@ -8,6 +8,7 @@ use App\Models\PoliticianResult;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use App\Models\Party;
+use App\Models\Constituency;
 
 class TeleBot extends Controller
 {
@@ -108,7 +109,7 @@ EOD
                 $listeName = substr($message["text"], $message["entities"][0]["length"] + 1);
                 $party = Party::where('abbreviation', 'LIKE', '%' . $listeName . '%')->first();
                 if ($party) {
-                    $politicians = PoliticianResult::where('partyId', $party->partyId)->get();
+                    $politicians = PoliticianResult::where('partyId', "2023_" . $party->id)->get();
                     foreach ($politicians as $politician) {
                         $politician->addChatInterested($message['chat']['id']);
                     }
@@ -118,6 +119,43 @@ EOD
                     $this->send_message($message['chat']['id'], "Ich habe leider keine Liste mit diesem Namen gefunden. Schreib /listen, damit ich dir alle Parteikürzel, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
                     return;
                 }
+                break;
+
+            case "/listen":
+                $parties = Party::where("partyId", "LIKE", "2023_%")->get();
+                $messageText = "Ich verwende folgende Parteikürzel:\n";
+                $partyAbbreviations = [];
+                foreach ($parties as $party) {
+                    $partyAbbreviations[] = "- <b>" . $party->abbreviation . "</b> (" . $party->name . ")\n";
+                }
+                $messageText .= implode("", $partyAbbreviations);
+                $this->send_message($message['chat']['id'], $messageText);
+                return;
+                break;
+
+            case "/kandiWahlkreis":
+                $constituencyName = substr($message["text"], $message["entities"][0]["length"] + 1);
+                $constituency = Constituency::where('name', 'LIKE', '%' . $constituencyName . '%')->first();
+                if ($constituency) {
+                    $politicians = PoliticianResult::where('constituencyId', $constituency->id)->get();
+                    foreach ($politicians as $politician) {
+                        $politician->addChatInterested($message['chat']['id']);
+                    }
+                    $this->send_message($message['chat']['id'], "Ich habe den Wahlkreis {$constituency->name} gefunden. Ich werde dich zu den Kandis dieses Wahlkreises auf dem Laufenden halten.");
+                    return;
+                } else {
+                    $this->send_message($message['chat']['id'], "Ich habe leider keinen Wahlkreis mit diesem Namen gefunden. Schreib /wahlkreise, damit ich dir alle Wahlkreise, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
+                    return;
+                }
+
+            case "/wahlkreise":
+                $constituencies = Constituency::all();
+                $constituencyNames = [];
+                foreach ($constituencies as $constituency) {
+                    $constituencyNames[] = "- " . $constituency->name;
+                }
+                $this->send_message($message['chat']['id'], "Ich verwende folgende Wahlkreise:\n" . implode("\n", $constituencyNames));
+                return;
 
 
             case "/entferneKandi":
@@ -138,17 +176,42 @@ EOD
                 }
                 break;
 
+            case "/entferneAlle":
+                $politicians = PoliticianResult::where('chats_interested', "LIKE", "%{$message['chat']['id']}%")->get();
+                if (count($politicians) == 0) {
+                    $this->send_message($message['chat']['id'], "Du hast noch keine Kandis auf deiner Liste. Füge welche hinzu, indem du /kandi oder /kandiNr verwendest. Schreib /help um zu sehen, was ich kann.");
+                    return;
+                } else {
+                    foreach ($politicians as $politician) {
+                        $politician->removeChatInterested($message['chat']['id']);
+                    }
+                    $this->send_message($message['chat']['id'], "Ich habe alle Kandis von deiner Liste entfernt.");
+                    return;
+                }
+                break;
+
             case "/meineKandis":
                 $politicians = PoliticianResult::where('chats_interested', "LIKE", "%{$message['chat']['id']}%")->get();
                 if (count($politicians) == 0) {
                     $this->send_message($message['chat']['id'], "Du hast noch keine Kandis auf deiner Liste. Füge welche hinzu, indem du /kandi oder /kandiNr verwendest. Schreib /help um zu sehen, was ich kann.");
                     return;
                 } else {
-                    $text = "Du hast folgende Kandis auf deiner Liste:\n\n";
-                    foreach ($politicians as $politician) {
-                        $text .= "- <b>{$politician->name}</b> von der Liste " . substr($politician->partyId, 5) . " ({$politician->party->name}) (entfernen mit /entferneKandi {$politician->politicianId})\n\n";
+                    $this->send_message($message['chat']['id'], "Du hast folgende Kandis auf deiner Liste:");
+                    $max = ceil(count($politicians) / 10);
+                    $i = 0;
+                    $j = 0;
+                    for ($i; $i < $max; $i++) {
+                        sleep(1);
+                        $text = "";
+                        for ($j = 0; $j < 10; $j++) {
+                            if (isset($politicians[$j + $i * 10])) {
+                                $text .= $politicians[$j + $i * 10]->name . ", " . $politicians[$j + $i * 10]->party->abbreviation . " (entfernen mit /entferneKandi {$politicians[$j + $i * 10]->politicianId})\n";
+                            } else {
+                                break;
+                            }
+                        }
+                        $this->send_message($message['chat']['id'], $text);
                     }
-                    $this->send_message($message['chat']['id'], $text);
                     return;
                 }
                 break;
