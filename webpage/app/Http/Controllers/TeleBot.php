@@ -84,8 +84,12 @@ EOD
                 return;
 
             case "/registerChannel":
-                set_option("telegram_channel_id", $message['chat']['id']);
-                $this->send_message($message['chat']['id'], "Ich habe diesen Channel als Wahlchannel registriert.");
+                if ($message["from"]["id"] == get_option("creator")) {
+                    set_option("telegram_channel_id", $message['chat']['id']);
+                    $this->send_message($message['chat']['id'], "Ich habe diesen Channel als Wahlchannel registriert.");
+                } else {
+                    $this->send_message($message['chat']['id'], "Du bist nicht berechtigt, diesen Befehl auszuführen.");
+                }
                 return;
                 break;
             case "/echoChannel":
