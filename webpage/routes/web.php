@@ -35,6 +35,6 @@ Route::resource('announcements', AnnouncementController::class);
 
 Route::get('/wahlbot', function () {
     respond("uwu");
-})->name('telegraph.webhook');
+})->name('telagraph.webhook');
 
 require __DIR__.'/auth.php';
