@@ -4,8 +4,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Announcement;
 use App\Http\Controllers\AnnouncementController;
-use DefStudio\Telegraph\Models\TelegraphBot;
-use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Support\Facades\Storage;
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::match(['get', 'post'], '/wahlbot', function () {
+    
 })->name('telegraph.webhook');
 
 // Route::get('/', function () {
