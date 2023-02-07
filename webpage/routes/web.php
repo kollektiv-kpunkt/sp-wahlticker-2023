@@ -34,4 +34,3 @@ Route::middleware('auth')->group(function () {
 Route::resource('announcements', AnnouncementController::class);
 
 require __DIR__.'/auth.php';
-require __DIR__.'/bot.php';
