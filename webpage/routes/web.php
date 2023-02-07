@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Announcement;
 use App\Http\Controllers\AnnouncementController;
 use DefStudio\Telegraph\Models\TelegraphBot;
-use DefStudio\Telegraph\Facades\TelegraphChat;
+use DefStudio\Telegraph\Models\TelegraphChat;
 
 /*
 |--------------------------------------------------------------------------
