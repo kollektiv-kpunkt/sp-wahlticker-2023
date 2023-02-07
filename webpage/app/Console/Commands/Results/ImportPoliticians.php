@@ -38,7 +38,7 @@ class ImportPoliticians extends Command
                 $politicianResult = new PoliticianResult();
             }
             $politicianResult->fill([
-                "politicianId" => $politicianId,
+                "politicianId" => $politician["kandidatNummer"],
                 "name" => $politician["vorname"] . " " . $politician["nachname"],
                 "partyId" => "2023_" . $politician["listeNummer"],
                 "constituencyId" => $constituencyId,

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('politician_results', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("politicianId", 4);
+            $table->string("politicianId", 10)->unique();
             $table->text("name");
             $table->string("partyId", 7)->constrained("parties");
             $table->unsignedBigInteger("constituencyId");
