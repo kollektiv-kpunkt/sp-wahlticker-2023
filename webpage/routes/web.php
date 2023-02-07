@@ -18,8 +18,10 @@ use App\Http\Controllers\TeleBot;
 */
 
 Route::match(['get', 'post'], '/wahlbot', function () {
-    $telebot = new TeleBot();
-    $telebot->webhook(request());
+    Storage::put('wahlbot.json', json_encode(request()->all()));
+    exit;
+    // $telebot = new TeleBot();
+    // $telebot->webhook(request());
 })->name('telegraph.webhook');
 
 Route::get('/', function () {
