@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::match(['get', 'post'], '/wahlbot', function () {
-    Storage::disk('local')->put('wahlbot.json', json_encode(request()->all()));
+    Storage::disk('local')->put('wahlbot.json', json_encode(request()->all(), JSON_PRETTY_PRINT));
 })->name('telegraph.webhook');
 
 Route::get('/', function () {
