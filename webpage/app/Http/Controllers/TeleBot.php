@@ -162,10 +162,6 @@ EOD
                 $constituencyName = explode(" ", substr($message["text"], $message["entities"][0]["length"] + 1))[1];
                 $party = Party::where('abbreviation', 'LIKE', '%' . $partyAbbreviation . '%')->first();
                 $constituency = Constituency::where('name', 'LIKE', '%' . $constituencyName . '%')->first();
-                dd([
-                    $party,
-                    $constituency
-                ]);
                 if (!$party || !$constituency) {
                     $this->send_message($message['chat']['id'], "Ich habe leider keine Liste mit diesem Namen oder keinen Wahlkreis mit diesem Namen gefunden. Schreib /listen, damit ich dir alle Parteikürzel, die ich verwende, anzeige. Schreib /wahlkreise, damit ich dir alle Wahlkreise, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
                     return;
