@@ -18,6 +18,8 @@ INSERT INTO `constituencies` (`id`, `created_at`, `updated_at`, `name`, `seats_2
 (15, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Winterthur-Land', 7, 7, 59494),
 (16, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Andelfingen', 4, 4, 32117),
 (17, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Bülach', 18, 18, 158344),
-(18, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Dielsdorf', 11, 11, 92345);
+(18, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Dielsdorf', 11, 11, 92345)
+    ON DUPLICATE KEY
+        UPDATE `id` = VALUES(`id`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`), `name` = VALUES(`name`), `seats_2023` = VALUES(`seats_2023`), `seats_2019` = VALUES(`seats_2019`), `population` = VALUES(`population`);
 
 COMMIT;

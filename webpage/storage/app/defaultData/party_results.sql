@@ -220,6 +220,8 @@ INSERT INTO `party_results` (`id`, `created_at`, `updated_at`, `partyId`, `year`
 (439, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2019_10', 2019, 18, 8392, 5.20, NULL, NULL),
 (440, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2019_11', 2019, 18, 0, 0.00, NULL, NULL),
 (441, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2019_12', 2019, 18, 0, 0.00, NULL, NULL),
-(442, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2019_13', 2019, 18, 0, 0.00, NULL, NULL);
+(442, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2019_13', 2019, 18, 0, 0.00, NULL, NULL)
+    ON DUPLICATE KEY
+        UPDATE `id` = VALUES(`id`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`), `partyId` = VALUES(`partyId`), `year` = VALUES(`year`), `constituencyId` = VALUES(`constituencyId`), `votes` = VALUES(`votes`), `voteShare` = VALUES(`voteShare`), `seats` = VALUES(`seats`), `seatsChange` = VALUES(`seatsChange`);
 
 COMMIT;

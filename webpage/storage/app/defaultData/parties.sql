@@ -26,6 +26,8 @@ INSERT INTO `parties` (`id`, `created_at`, `updated_at`, `partyId`, `name`, `abb
 (23, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2023_10', 'Aufrecht / Freie Liste', 'AuFL', '#696969', NULL, NULL, NULL, NULL, NULL, NULL),
 (24, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2023_11', 'Partei der Arbeit (PdA)', 'PdA', '#BC2925', NULL, NULL, NULL, NULL, NULL, NULL),
 (25, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2023_12', 'Ja zu einem Wachstumsstopp', 'STOPP', '#696969', NULL, NULL, NULL, NULL, NULL, NULL),
-(26, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2023_13', 'SansPapiersPolitiques', 'SaPaPo', '#696969', NULL, '0', '0', NULL, 0.00, 0.00);
+(26, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2023_13', 'SansPapiersPolitiques', 'SaPaPo', '#696969', NULL, '0', '0', NULL, 0.00, 0.00)
+    ON DUPLICATE KEY
+        UPDATE `id` = VALUES(`id`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`), `name` = VALUES(`name`), `abbreviation` = VALUES(`abbreviation`), `color` = VALUES(`color`), `seats_2023` = VALUES(`seats_2023`), `seats_2019` = VALUES(`seats_2019`), `seats_2015` = VALUES(`seats_2015`), `voteShare_2023` = VALUES(`voteShare_2023`), `voteShare_2019` = VALUES(`voteShare_2019`), `voteShare_2015` = VALUES(`voteShare_2015`);
 
 COMMIT;
