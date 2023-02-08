@@ -21,12 +21,15 @@ class PoliticianResult extends Model
         'initialPosition',
         'finalPosition',
         'elected',
-        "chats_interested"
+        "chats_interested",
+        "change_type",
+        "is_scheduled"
     ];
 
     protected $casts = [
         'elected' => 'boolean',
-        "chats_interested" => "array"
+        "chats_interested" => "array",
+        "is_scheduled" => "boolean"
     ];
 
     public function party()
