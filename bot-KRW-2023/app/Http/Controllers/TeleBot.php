@@ -89,7 +89,7 @@ class TeleBot extends Controller
 
     public function help($content, $chat_id) {
         $message = <<<EOD
-        Hier sind mcontent Befehle:
+        Hier sind meine Befehle:
 
         /start - Starte den Bot
 
@@ -101,7 +101,7 @@ class TeleBot extends Controller
 
         /unsubscribe KANDI_ID - Deabonniere Updates für Kandis (z.B. /unsubscribe 1_101).
 
-        /unsubscribe_partei PARTEI_ID - Deabonniere Updates für Parteien in einem Wahlkreis (z.B. /unsubscribe_partei SP Zürich 1&2).
+        /unsubscribe_parteien WAHLKREIS|GEMEINDE_ID - Deabonniere Updates für Parteien in einem Wahlkreis (z.B. /unsubscribe_parteien Zürich 1&2).
 
         /unsubscribe_all - Deabonniere Updates für alle Kandis.
 
@@ -115,7 +115,7 @@ class TeleBot extends Controller
 
         /subscribe_parteien_wahlkreis WAHLKREIS - Abonniere Updates für alle Parteien in einem Wahlkreis (z.B. /subscribe_parteien_wahlkreis Zürich 1&2).
 
-        /subscribe_gemeinde GEMEINDE - Abonniere Updates für alle Parteien in einer Gemeinde (z.B. /subscribe_gemeinde Zürich).
+        /subscribe_parteien_gemeinde GEMEINDE - Abonniere Updates für alle Parteien in einer Gemeinde (z.B. /subscribe_parteien_gemeinde Zürich).
 
         /parteien - Zeige alle Parteien.
 
@@ -207,23 +207,28 @@ class TeleBot extends Controller
         }
     }
 
-    public function unsubscribe_partei($content, $chat_id) {
-        $exploded = explode(" ", $content);
-        if (count($exploded) != 2) {
-            $this->send_message($chat_id, "Huups, da ist wohl etwas schief gelaufen. Wenn du einer Partei in einem Wahlkreis entfolgen möchtest, schreib /unsubscribe_partei PARTEI WAHLKREIS. \nSchreib /parteien, damit ich dir alle Parteien, die ich verwende, anzeige.\nSchreib /wahlkreise, damit ich dir alle Wahlkreise, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
-            return;
+    public function unsubscribe_parteien($content, $chat_id) {
+        if (intval($content)) {
+            $constituency = Municipality::where('id', $content)->first();
+            $partyResult = PartyResult::where('municipality_id', $constituency->id)->get();
+            $type = "Gemeinde";
+        } else {
+            $constituency = Constituency::where('name', "LIKE", "%{$constituency_name}%")->first();
+            $partyResult = PartyResult::where('constituency_id', $constituency->id)->get();
+            $type = "Wahlkreis";
         }
-        $party_abbreviation = $exploded[0];
-        $constituency_name = $exploded[1];
-        $party = Party::where('abbreviation', $party_abbreviation)->first();
-        $constituency = Constituency::where('name', "LIKE", "%{$constituency_name}%")->first();
-        $partyResult = PartyResult::where('party_id', $party->party_id)->where('constituency_id', $constituency->id)->first();
         if ($partyResult) {
-            $partyResult->removeChatInterested($chat_id);
-            $this->send_message($chat_id, "Ich habe die Partei {$party->name} aus dem Wahlkreis {$constituency->name} von deiner Liste entfernt.");
+            foreach ($partyResult as $party) {
+                $removed = $party->removeChatInterested($chat_id);
+            }
+            if (!$removed) {
+                $this->send_message($chat_id, "Du hast {$constituency->name} noch nicht auf deiner Liste.");
+            } else {
+                $this->send_message($chat_id, "Ich hab {$constituency->name} von deiner Liste entfernt.");
+            }
             return;
         } else {
-            $this->send_message($chat_id, "Huups, da ist wohl etwas schief gelaufen. Wenn du einer Partei in einem Wahlkreis entfolgen möchtest, schreib /unsubscribe_partei PARTEI WAHLKREIS. \nSchreib /parteien, damit ich dir alle Parteien, die ich verwende, anzeige.\nSchreib /wahlkreise, damit ich dir alle Wahlkreise, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
+            $this->send_message($chat_id, "Huups, da ist wohl etwas schief gelaufen. Wenn du einer Partei in einem Wahlkreis entfolgen möchtest, schreib /unsubscribe_partei WAHLKREIS|GEMEINDE_ID. \nSchreib /parteien, damit ich dir alle Parteien, die ich verwende, anzeige.\nSchreib /wahlkreise, damit ich dir alle Wahlkreise, die ich verwende, anzeige.\nSchreib /gemeinden damit ich dir die Gemeinden mit ihren IDs zeige.\nSchreib /help um zu sehen, was ich kann.");
             return;
         }
     }
@@ -281,7 +286,11 @@ class TeleBot extends Controller
                     $text = "";
                     for ($j = 0; $j < 10; $j++) {
                         if (isset($parties[$j + $i * 10])) {
-                            $text .= $parties[$j + $i * 10]->party->abbreviation . " (entfernen mit /unsubscribe_partei:{$parties[$j + $i * 10]->party->abbreviation}_{$parties[$j + $i * 10]->constituency->name})\n";
+                            if ($parties[$j + $i * 10]->municipal) {
+                                $text .= $parties[$j + $i * 10]->party->abbreviation . " Gemeinde {$parties[$j + $i * 10]->municipality->name} (entfernen mit /unsubscribe_parteien:{$parties[$j + $i * 10]->municipality->id})\n";
+                            } else {
+                                $text .= $parties[$j + $i * 10]->party->abbreviation . " Wahlkreis {$parties[$j + $i * 10]->constituency->name} (entfernen mit /unsubscribe_parteien:{$parties[$j + $i * 10]->constituency->name})\n";
+                            }
                         } else {
                             break;
                         }
@@ -346,10 +355,10 @@ class TeleBot extends Controller
         }
     }
 
-    public function subscribe_pareien_wahlkreis($content, $chat_id) {
-        $constituency = Constituency::where('name', 'LIKE', '%' . $content . '%')->where("party_id", "LIKE", "2023_%")->first();
+    public function subscribe_parteien_wahlkreis($content, $chat_id) {
+        $constituency = Constituency::where('name', 'LIKE', '%' . $content . '%')->first();
         if ($constituency) {
-            $parties = PartyResult::where('constituency_id', $constituency->id)->get();
+            $parties = PartyResult::where('constituency_id', $constituency->id)->where("party_id", "LIKE", "2023_%")->where("municipal", false)->get();
             foreach ($parties as $party) {
                 $party->addChatInterested($chat_id);
             }
@@ -361,8 +370,19 @@ class TeleBot extends Controller
         }
     }
 
-    public function subscribe_gemeinde($content, $chat_id) {
+    public function subscribe_parteien_gemeinde($content, $chat_id) {
         $municipality = Municipality::where('name', 'LIKE', '%' . $content . '%')->first();
+        if ($municipality) {
+            $partyResults = PartyResult::where('municipality_id', $municipality->id)->get();
+            foreach ($partyResults as $partyResult) {
+                $partyResult->addChatInterested($chat_id);
+            }
+            $this->send_message($chat_id, "Ich habe die Gemeinde {$municipality->name} gefunden. Ich werde dich zu den Parteien dieser Gemeinde auf dem Laufenden halten.");
+            return;
+        } else {
+            $this->send_message($chat_id, "Ich habe leider keine Gemeinde mit diesem Namen gefunden. Schreib /gemeinden, damit ich dir alle Gemeinden, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
+            return;
+        }
     }
 
     public function wahlkreise($content, $chat_id) {
@@ -382,6 +402,28 @@ class TeleBot extends Controller
             $text .= "<b>{$party->abbreviation}</b> ({$party->name})" . "\n";
         }
         $this->send_message($chat_id, $text);
+        return;
+    }
+
+    public function gemeinden($content, $chat_id) {
+        $municipalities = Municipality::orderBy('name', 'asc')->get();
+        $text = "Ich verwende folgende Gemeinden:\n";
+        $this->send_message($chat_id, $text);
+        $max = ceil(count($municipalities) / 50);
+        $i = 0;
+        $j = 0;
+        for ($i; $i < $max; $i++) {
+            sleep(1);
+            $text = "";
+            for ($j = 0; $j < 50; $j++) {
+                if (isset($municipalities[$j + $i * 50])) {
+                    $text .= "{$municipalities[$j + $i * 50]->name} (BfS-Nr: {$municipalities[$j + $i * 50]->id})\n";
+                } else {
+                    break;
+                }
+            }
+            $this->send_message($chat_id, $text);
+        }
         return;
     }
 }

@@ -18,7 +18,9 @@ class PartyResult extends Model
         "voteShare",
         "seats",
         "seatChange",
-        "chats_interested"
+        "chats_interested",
+        "municipality_id",
+        "voteShare_change"
     ];
 
     protected $casts = [
@@ -33,6 +35,10 @@ class PartyResult extends Model
     public function constituency()
     {
         return $this->belongsTo(Constituency::class, "constituency_id", "id");
+    }
+
+    public function municipality() {
+        return $this->belongsTo(Municipality::class, "municipality_id", "id");
     }
 
     public function addChatInterested($chatId) {

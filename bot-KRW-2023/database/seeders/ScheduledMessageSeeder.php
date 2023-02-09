@@ -17,9 +17,9 @@ class ScheduledMessageSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 1; $i++) {
             ScheduledMessage::create([
-                "content" => $faker->sentence,
+                "content" => $faker->sentence(20),
                 "tele_chat_id" => "543376720",
             ]);
         }
