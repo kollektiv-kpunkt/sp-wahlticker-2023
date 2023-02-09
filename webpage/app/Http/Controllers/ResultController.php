@@ -3,11 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use App\Models\PoliticianResult;
 use App\Models\PartyResult;
+use App\Models\Announcement;
+use App\Models\Constituency;
 
 class ResultController extends Controller
 {
+
+    public static function handleKrMunicipalities($municipalities) {
+        
+    }
+
+    public static function handleKrParties($parties) {
+
+    }
+
+    public static function handleKrPoliticians($politicians) {
+
+    }
 
     public function handleResultChangeKR($changedConstituencies, $constituencies) {
 
@@ -52,6 +68,47 @@ class ResultController extends Controller
                 $politician->change_type = $updatedType;
                 $politician->save();
             }
+
+            $this->createAnnouncementKR($constituency);
         }
+    }
+
+    public function createAnnouncementKR($constituency) {
+        $announcement = new Announcement();
+        $constituencyName = Constituency::where("id", $constituency["wahlkreisNummer"])->first()->name;
+        if (Announcement::where("title", "Neues Ergebnis für den Wahlkreis {$constituencyName}")->first() != null) {
+            return;
+        }
+        $data = [
+            "title" => "Neues Ergebnis für den Wahlkreis {$constituencyName}",
+            "subtitle" => "Kantonsrat | Neues Ergebnis",
+            "content" => [
+                "time" => Carbon::now()->timestamp,
+                "blocks" => [
+                    [
+                        "id"=> Str::random(10),
+                        "type"=> "paragraph",
+                        "data"=> [
+                            "text"=> "Der Wahlkreis {$constituencyName} wurde soeben ausgezählt! Hier die Ergebnisse der Listen:"
+                        ]
+                    ],
+                    [
+                        "id"=> Str::random(10),
+                        "type"=> "list",
+                        "data"=> [
+                            "style"=> "unordered",
+                            "items"=> []
+                        ]
+                    ]
+                ],
+                "version" => "2.26.5"
+            ]
+        ];
+        foreach($constituency["resultat"]["listen"] as $partyResult) {
+            $data["content"]["blocks"][1]["data"]["items"][] = "{$partyResult["listeCode"]}: {$partyResult["waehlerProzent"]}% ({$partyResult["gewinnWaehlerProzent"]}%)";
+        }
+        $data["content"] = json_encode($data["content"], JSON_UNESCAPED_UNICODE);
+        $announcement->createWithMessage($data);
+        return true;
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\ScheduledMessage;
+use App\Models\TeleChat;
 
 class Announcement extends Model
 {
@@ -47,5 +49,22 @@ class Announcement extends Model
         $renderer = new \Setono\EditorJS\Renderer\Renderer($blockRenderer);
         $html = $renderer->render($parserResult);
         return $html;
+    }
+
+    public static function createWithMessage($data) {
+        $announcement = new Announcement();
+        $announcement->fill($data);
+
+        $scheduledMessage = new ScheduledMessage();
+        $content = $announcement->getHtmlContent();
+        if (strlen(strip_tags($content)) < 4096) {
+            $scheduledMessage->content = $content;
+        } else {
+            $scheduledMessage->content = strip_tags($announcement->getHtmlContent());
+        }
+        $scheduledMessage->tele_chat_id = TeleChat::where("chat_id", get_option("telegram_channel_id"))->first()->id;
+
+        $announcement->save();
+        $scheduledMessage->save();
     }
 }

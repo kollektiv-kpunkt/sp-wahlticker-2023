@@ -1,6 +1,7 @@
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
+import ImageTool from '@editorjs/image';
 
 
 if (document.querySelector(".ticker-admin-announcement-form")) {
@@ -14,6 +15,15 @@ if (document.querySelector(".ticker-admin-announcement-form")) {
         tools: {
             header: Header,
             list: List,
+            image: {
+                class: ImageTool,
+                config: {
+                    endpoints: {
+                        byFile: '/uploadFile', // Your backend file uploader endpoint
+                        byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                    }
+                }
+            }
         },
         onChange: (event) => {
             editor.save().then((outputData) => {

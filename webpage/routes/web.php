@@ -40,4 +40,8 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('announcements', AnnouncementController::class);
 
+Route::post("upload/img", [AnnouncementController::class, 'uploadImg'])->name('upload.img');
+Route::post("upload/url", [AnnouncementController::class, 'uploadUrl'])->name('upload.url');
+
+
 require __DIR__.'/auth.php';

@@ -38,6 +38,9 @@ class DefaultData extends Command
             $sql = File::get($file->getPathname());
             DB::unprepared($sql);
         }
+        $this->info("Seeding Politicians...");
+        \Artisan::call("results:import-politicians");
+        $this->info("Seeding default data finished.");
         return Command::SUCCESS;
     }
 }

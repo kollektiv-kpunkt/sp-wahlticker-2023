@@ -29,7 +29,7 @@ class Test extends Command
     public function handle()
     {
         $bot = new TeleBot();
-        $bot->send_message("-874264018", 'Test');
+        $bot->send_message("-800629933", 'Test');
         return Command::SUCCESS;
     }
 }

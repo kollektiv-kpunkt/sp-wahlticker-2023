@@ -4,7 +4,6 @@ namespace App\Console\Commands\Results;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Rogervila\ArrayDiffMultidimensional;
 use App\Http\Controllers\ResultController;
 
 
@@ -43,28 +42,17 @@ class checkForUpdates extends Command
             ])->get(env("KR_FILE_URL"))->body();
         }
         $json = json_decode($file, true);
-        if (get_option("kr_last_update") == $json["timestamp"] ) {
+        if (get_option("kr_last_update") == $json["timestamp"] && env("APP_ENV") != "local") {
             $this->error("No update found.");
             exit;
         }
+        $krResults = $json["kantone"][1]["vorlagen"][0];
+        $rrResults = $json["kantone"][1]["vorlagen"][1];
 
-        $localFile = file_get_contents(storage_path("app/wahlen_resultate_2023_02_12.min.json"));
-        $localJson = json_decode($localFile, true);
+        ResultController::handleKrMunicipalities($krResults["gemeinden"]);
+        ResultController::handleKrParties($krResults["resultat"]["listen"]);
+        ResultController::handleKrPoliticians($krResults["resultat"]["kandidaten"]);
 
-        $differences = ArrayDiffMultidimensional::strictComparison($localJson, $json);
-        $this->info("Found " . count($differences) . " differences.");
-        $this->info("Updating local file...");
-        // file_put_contents(storage_path("app/wahlen_resultate_2023_02_12.min.json"), $file);
-
-        if (isset($differences["kantone"][1]["vorlagen"][0]["wahlkreise"])) {
-            $this->info("Found changes in wahlkreise.");
-            $resultController = new ResultController();
-            $resultController->handleResultChangeKR($differences["kantone"][1]["vorlagen"][0]["wahlkreise"], $json["kantone"][1]["vorlagen"][0]["wahlkreise"]);
-        } else {
-            $this->info("No changes in wahlkreise.");
-        }
-        // $this->info("Updating last update timestamp...");
-        // set_option("kr_last_update", $json["timestamp"]);
         $this->info("Done.");
         return Command::SUCCESS;
     }

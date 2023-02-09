@@ -37,7 +37,7 @@ class AnnouncementController extends Controller
     public function store(StoreAnnouncementRequest $request)
     {
         $validatedRequest = $request->validated();
-        Announcement::create($validatedRequest);
+        Announcement::createWithMessage($validatedRequest);
         return redirect()->route('admin');
     }
 
@@ -87,5 +87,18 @@ class AnnouncementController extends Controller
     {
         $announcement->delete();
         return redirect()->route('admin');
+    }
+
+    public function uploadImg()
+    {
+        $path = request()->file('file')->store('public/img');
+        return response()->json(['location' => asset(Storage::url($path))]);
+    }
+
+    public function uploadUrl()
+    {
+        $url = request()->input('url');
+        $path = Storage::put('public/img', file_get_contents($url));
+        return response()->json(['location' => asset(Storage::url($path))]);
     }
 }
