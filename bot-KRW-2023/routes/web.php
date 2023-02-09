@@ -21,7 +21,7 @@ Route::match(['get', 'post'], '/', function () {
             'request' => $request->all(),
             'response' => "No message",
             "code" => 200
-        ))
+        ));
     }
     $telebot->webhook(request());
 });
