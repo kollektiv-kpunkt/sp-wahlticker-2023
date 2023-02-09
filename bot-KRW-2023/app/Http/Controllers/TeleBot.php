@@ -75,7 +75,11 @@ class TeleBot extends Controller
         $command = substr(stripslashes($message['text']), $message['entities'][0]['offset'] + 1, $commandLenght - 1);
         $chat_id = $message['chat']['id'];
         $content = substr(stripslashes($message['text']), $commandLenght + 1);
-        $this->$command($content, $chat_id);
+        if (method_exists($this, $command)) {
+            $this->$command($content, $chat_id);
+        } else {
+            $this->send_message($chat_id, 'Sorry, ich kenne diesen Befehl nicht. Schreibe /help um zu sehen, was ich alles kann.');
+        }
     }
 
     public function start($content, $chat_id) {
@@ -103,7 +107,7 @@ class TeleBot extends Controller
 
         /unsubscribe_parteien WAHLKREIS|GEMEINDE_ID - Deabonniere Updates für Parteien in einem Wahlkreis (z.B. /unsubscribe_parteien Zürich 1&2).
 
-        /unsubscribe_all - Deabonniere Updates für alle Kandis.
+        /unsubscribe_all - Deabonniere Updates für alle Kandis und Parteien.
 
         /list - Zeige alle abonnierten Kandis.
 
@@ -120,6 +124,8 @@ class TeleBot extends Controller
         /parteien - Zeige alle Parteien.
 
         /wahlkreise - Zeige alle Wahlkreise.
+
+        /gemeinden - Zeige alle Gemeinden.
 
         Wenn du fragen hast, schreib meinem Entwickler <a href="https://t.me/TimothyJOesch">@TimothyJOesch</a>.
         EOD;
