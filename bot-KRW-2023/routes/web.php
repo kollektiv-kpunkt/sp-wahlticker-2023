@@ -16,9 +16,9 @@ use App\Http\Controllers\TeleBot;
 
 Route::match(['get', 'post'], '/', function () {
     $telebot = new TeleBot();
-    if (!isset($request->all()['message']))  {
+    if (!isset(request()->all()['message']))  {
         dd(array(
-            'request' => $request->all(),
+            'request' => request()->all(),
             'response' => "No message",
             "code" => 200
         ));
