@@ -56,7 +56,11 @@ class TeleBot extends Controller
     }
 
     public function maintenance($chat_id) {
-        $this->send_message($chat_id, 'Der SP Wahlbot ist zur Zeit im Wartungsmodus. Bitte versuche es später noch einmal.');
+        $message = <<<EOD
+        Hoi 👋
+        Ich bin derzeit im Wartungsmodus. Sorry, versuch es heute Abend noch einmal.
+        EOD;
+        $this->send_message($chat_id, $message);
     }
 
     public function handle_command($message) {
