@@ -32,9 +32,9 @@ class ResultController extends Controller
         unset($krResults["gemeinden"][151]);
         $krResults["gemeinden"] = array_values($krResults["gemeinden"]);
         $gemeinden = array_merge($krResults["gemeinden"], $krResults["zaehlkreise"]);
-        // $this->handle_kr_municipalities($krResults["gemeinden"]);
+        $this->handle_kr_municipalities($krResults["gemeinden"]);
         $this->handle_kr_constituencies($krResults["wahlkreise"]);
-        // $this->handleKrPoliticians($krResults["resultat"]["kandidaten"]);
+        $this->handleKrPoliticians($krResults["resultat"]["kandidaten"]);
     }
 
     public function handle_kr_municipalities($municipalities) {
@@ -92,14 +92,14 @@ class ResultController extends Controller
             if ($result["gebietAusgezaehlt"] == false) {
                 continue;
             }
-            // if (CountedMunicipality::where("constituency_id", $constituency["wahlkreisNummer"])->where("type", "constituencyParty")->first() == null) {
-            //     CountedMunicipality::create([
-            //         "municipality_id" => $constituency["wahlkreisNummer"],
-            //         "type" => "constituencyParty",
-            //     ]);
-            // } else {
-            //     continue;
-            // }
+            if (CountedMunicipality::where("constituency_id", $constituency["wahlkreisNummer"])->where("type", "constituencyParty")->first() == null) {
+                CountedMunicipality::create([
+                    "municipality_id" => $constituency["wahlkreisNummer"],
+                    "type" => "constituencyParty",
+                ]);
+            } else {
+                continue;
+            }
             $message_identifier = "constituency_{$constituency["wahlkreisNummer"]}_parties";
             $chats_interested = PartyResult::where("constituency_id", $constituency["wahlkreisNummer"])->where("municipal", false)->where("party_id", "LIKE", "2023_%")->first()->chats_interested;
             $scheduledMessages = [];
