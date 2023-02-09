@@ -19,8 +19,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string("party_id", 7)->constrained("parties");
             $table->unsignedBigInteger("constituency_id");
-            $table->integer("votes")->length(7);
-            $table->float("voteShare", 5, 2);
+            $table->integer("votes")->length(7)->nullable();
+            $table->float("voteShare", 5, 2)->nullable();
             $table->integer("seats")->length(2)->nullable();
             $table->integer("seatsChange")->length(2)->nullable();
 
