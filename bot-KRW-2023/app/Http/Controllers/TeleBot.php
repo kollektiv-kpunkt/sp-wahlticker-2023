@@ -113,7 +113,7 @@ class TeleBot extends Controller
         $this->send_message($chat_id, $message);
     }
 
-    public function help($content, $chat_id) {
+    public function help($chat_id) {
         $message = <<<EOD
         Hier sind meine Befehle:
 
@@ -169,7 +169,7 @@ class TeleBot extends Controller
             $this->send_message($chat_id, <<<EOD
             Ich habe leider keinen Kandi mit diesem Namen gefunden. Bitte prüfe kurz auf Tippfehler. Wenn du die Kandi über ihre Kandinummer suchen willst, kannst du das mit dem Befehl <b>/kandiNr KANDINUMMER</b> tun.
 
-            Die Kandinummer setzt sich aus der Wahlkreisnummer, der Listennummer und dem Listenplatz zusammen. <a href='https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/kantons-regierungsratswahlen.html#-1097010600'>Die Wahlkreisnummern findest du hier</a>. Wenn es mehr als 10 Sitze auf der Liste gibt, ist die Platznummer immer zweistellig (z.B. 01, 02, 03 etc.). Für Lou Muster aus dem Wahlkreis Dietikon der Liste 20 auf Listenplatz 5 lautet die Listennummer "7_2005". Wenn du Lou also so suchen willst, schreib <b>/kandiNr:7_2005</b>.
+            Die Kandinummer setzt sich aus der Wahlkreisnummer, der Listennummer und dem Listenplatz zusammen. <a href='https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/kantons-regierungsratswahlen.html#-1097010600'>Die Wahlkreisnummern findest du hier</a>. Wenn es mehr als 10 Sitze auf der Liste gibt, ist die Platznummer immer zweistellig (z.B. 01, 02, 03 etc.). Für Lou Muster aus dem Wahlkreis Dietikon der Liste 20 auf Listenplatz 5 lautet die Listennummer "7_2005". Wenn du Lou also so suchen willst, schreib <b>/kandiNr_7_2005</b>.
 
             Schreib /help um zu sehen, was ich kann.
             EOD
@@ -196,7 +196,7 @@ class TeleBot extends Controller
             $this->send_message($chat_id, <<<EOD
             Ich habe leider keinen Kandi mit dieser Kandinummer gefunden. Bitte prüfe kurz auf Tippfehler. Wenn du die Kandi über ihren Namen suchen willst, kannst du das mit dem Befehl <b>/kandi NAME</b> tun.
 
-            Die Kandinummer setzt sich aus der Wahlkreisnummer, der Listennummer und dem Listenplatz zusammen. <a href='https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/kantons-regierungsratswahlen.html#-1097010600'>Die Wahlkreisnummern findest du hier</a>. Wenn es mehr als 10 Sitze auf der Liste gibt, ist die Platznummer immer zweistellig (z.B. 01, 02, 03 etc.). Für Lou Muster aus dem Wahlkreis Dietikon der Liste 20 auf Listenplatz 5 lautet die Listennummer "7_2005". Wenn du Lou also so suchen willst, schreib <b>/kandiNr:7_2005</b>.
+            Die Kandinummer setzt sich aus der Wahlkreisnummer, der Listennummer und dem Listenplatz zusammen. <a href='https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/kantons-regierungsratswahlen.html#-1097010600'>Die Wahlkreisnummern findest du hier</a>. Wenn es mehr als 10 Sitze auf der Liste gibt, ist die Platznummer immer zweistellig (z.B. 01, 02, 03 etc.). Für Lou Muster aus dem Wahlkreis Dietikon der Liste 20 auf Listenplatz 5 lautet die Listennummer "7_2005". Wenn du Lou also so suchen willst, schreib <b>/kandiNr_7_2005</b>.
 
             Schreib /help um zu sehen, was ich kann.
             EOD
@@ -214,7 +214,7 @@ class TeleBot extends Controller
             $politician = $politician->first();
             $removed = $politician->removeChatInterested($chat_id);
             if (!$removed) {
-                $this->send_message($chat_id, "Du hast {$politician->name} noch nicht auf deiner Liste. Falls du die Kandi hinzufügen willst, schreibe /subscribeNr:{$politician->politician_id}.");
+                $this->send_message($chat_id, "Du hast {$politician->name} noch nicht auf deiner Liste. Falls du die Kandi hinzufügen willst, schreibe /subscribeNr_{$politician->politician_id}.");
             } else {
                 $this->send_message($chat_id, "Ich habe {$politician->name} von deiner Liste entfernt.");
             }
@@ -223,7 +223,7 @@ class TeleBot extends Controller
             $this->send_message($chat_id, <<<EOD
             Ich habe leider keinen Kandi mit dieser Kandinummer gefunden. Bitte prüfe kurz auf Tippfehler. Wenn du die Kandi über ihren Namen suchen willst, kannst du das mit dem Befehl <b>/kandi NAME</b> tun.
 
-            Die Kandinummer setzt sich aus der Wahlkreisnummer, der Listennummer und dem Listenplatz zusammen. <a href='https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/kantons-regierungsratswahlen.html#-1097010600'>Die Wahlkreisnummern findest du hier</a>. Wenn es mehr als 10 Sitze auf der Liste gibt, ist die Platznummer immer zweistellig (z.B. 01, 02, 03 etc.). Für Lou Muster aus dem Wahlkreis Dietikon der Liste 20 auf Listenplatz 5 lautet die Listennummer "7_2005". Wenn du Lou also so suchen willst, schreib <b>/kandiNr:7_2005</b>.
+            Die Kandinummer setzt sich aus der Wahlkreisnummer, der Listennummer und dem Listenplatz zusammen. <a href='https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/kantons-regierungsratswahlen.html#-1097010600'>Die Wahlkreisnummern findest du hier</a>. Wenn es mehr als 10 Sitze auf der Liste gibt, ist die Platznummer immer zweistellig (z.B. 01, 02, 03 etc.). Für Lou Muster aus dem Wahlkreis Dietikon der Liste 20 auf Listenplatz 5 lautet die Listennummer "7_2005". Wenn du Lou also so suchen willst, schreib <b>/kandiNr_7_2005</b>.
 
             Schreib /help um zu sehen, was ich kann.
             EOD
@@ -279,7 +279,7 @@ class TeleBot extends Controller
         }
     }
 
-    public function list($content, $chat_id) {
+    public function list($chat_id) {
         $politicians = PoliticianResult::where("chats_interested", "like", "%{$chat_id}%")->get();
         $constituencyResults = PartyResult::where("chats_interested", "like", "%{$chat_id}%")->where("municipal", false)->get();
         $constituencies = [];
@@ -307,7 +307,7 @@ class TeleBot extends Controller
                     $text = "";
                     for ($j = 0; $j < 10; $j++) {
                         if (isset($politicians[$j + $i * 10])) {
-                            $text .= $politicians[$j + $i * 10]->name . ", " . $politicians[$j + $i * 10]->party->abbreviation . " (entfernen mit /unsubscribe:{$politicians[$j + $i * 10]->politician_id})\n";
+                            $text .= $politicians[$j + $i * 10]->name . ", " . $politicians[$j + $i * 10]->party->abbreviation . " (entfernen mit /unsubscribe_{$politicians[$j + $i * 10]->politician_id})\n";
                         } else {
                             break;
                         }
@@ -317,11 +317,11 @@ class TeleBot extends Controller
             }
             if (count($subscribedConstituencies) > 0) {
                 sleep(1);
-                $this->send_message($chat_id, "Du hast die Parteiresultate aus folgenden Wahlkreisen abonniert:\n" . implode("\n", $subscribedConstituencies) . "\n(entfernen mit /unsubscribe_parteien:Wahlkreisname)");
+                $this->send_message($chat_id, "Du hast die Parteiresultate aus folgenden Wahlkreisen abonniert:\n" . implode("\n", $subscribedConstituencies) . "\n(entfernen mit /unsubscribe_parteien Wahlkreisname)");
             }
             if (count($subscribedMunicipalities) > 0) {
                 sleep(1);
-                $this->send_message($chat_id, "Du hast die Parteiresultate aus folgenden Gemeinden abonniert:\n" . implode("\n", $subscribedMunicipalities) . "\n(entfernen mit /unsubscribe_parteien:Gemeinde_ID)");
+                $this->send_message($chat_id, "Du hast die Parteiresultate aus folgenden Gemeinden abonniert:\n" . implode("\n", $subscribedMunicipalities) . "\n(entfernen mit /unsubscribe_parteien Gemeinde_ID)");
             }
             return;
         }
@@ -411,7 +411,7 @@ class TeleBot extends Controller
         }
     }
 
-    public function wahlkreise($content, $chat_id) {
+    public function wahlkreise($chat_id) {
         $constituencies = Constituency::all();
         $text = "Ich verwende folgende Wahlkreise:\n";
         foreach ($constituencies as $constituency) {
@@ -421,7 +421,7 @@ class TeleBot extends Controller
         return;
     }
 
-    public function parteien($content, $chat_id) {
+    public function parteien($chat_id) {
         $parties = Party::where("party_id", "LIKE", "2023_%")->get();
         $text = "Ich verwende folgende Parteikürzel:\n";
         foreach ($parties as $party) {
@@ -431,7 +431,7 @@ class TeleBot extends Controller
         return;
     }
 
-    public function gemeinden($content, $chat_id) {
+    public function gemeinden($chat_id) {
         $municipalities = Municipality::orderBy('name', 'asc')->get();
         $text = "Ich verwende folgende Gemeinden:\n";
         $this->send_message($chat_id, $text);
