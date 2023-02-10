@@ -13,6 +13,7 @@ class CountedMunicipality extends Model
 
     protected $fillable = [
         'municipality_id',
+        "constituency_id",
         'type',
     ];
 }

@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('bot:work-schedule')->everyMinute();
+        $schedule->command("result:check-for-updates")->everyMinute();
     }
 
     /**

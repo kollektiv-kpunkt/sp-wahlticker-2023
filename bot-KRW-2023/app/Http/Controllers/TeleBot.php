@@ -388,11 +388,11 @@ class TeleBot extends Controller
     {
         $politician_id = $content;
         $politicians = PoliticianResult::where('politician_id', "LIKE", "%\_{$politician_id}")->where("municipal",true)->get();
-        if ($politicians) {
+        if ($politicians && $politicians->count() > 0) {
             foreach ($politicians as $politician) {
                 $politician->addChatInterested($chat_id);
             }
-            $this->send_message($chat_id, "Ich habe {$politician->name} aus dem Wahlkreis {$politicians->first()->constituency->name} gefunden. Ich werde dich zu den Kandiresultaten aus allen Gemeinden auf dem Laufenden halten.");
+            $this->send_message($chat_id, "Ich habe {$politicians->first()->name} aus dem Wahlkreis {$politicians->first()->constituency->name} gefunden. Ich werde dich zu den Kandiresultaten aus allen Gemeinden auf dem Laufenden halten.");
             return;
         } else {
             $this->send_message($chat_id, "Ich habe leider keinen Kandidaten mit dieser Kandinummer in allen Gemeinden gefunden. Schreib /help um zu sehen, was ich kann.");
