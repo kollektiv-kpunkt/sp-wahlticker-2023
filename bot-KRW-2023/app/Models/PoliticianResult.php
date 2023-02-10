@@ -24,12 +24,15 @@ class PoliticianResult extends Model
         "chats_interested",
         "change_type",
         "is_scheduled",
+        "municipal",
+        "municipality_id",
     ];
 
     protected $casts = [
         "elected" => "boolean",
         'chats_interested' => 'array',
         "is_scheduled" => "boolean",
+        "municipal" => "boolean",
     ];
 
     public function party()
@@ -40,6 +43,14 @@ class PoliticianResult extends Model
     public function constituency()
     {
         return $this->belongsTo(Constituency::class, "constituency_id", "id");
+    }
+
+    public function municipality()
+    {
+        if (!isset($this->municipality_id)) {
+            return null;
+        }
+        return $this->belongsTo(Municipality::class, "municipality_id", "id");
     }
 
     public function addChatInterested($chatId) {

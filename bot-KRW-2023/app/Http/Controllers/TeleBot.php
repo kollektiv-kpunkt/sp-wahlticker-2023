@@ -17,8 +17,9 @@ use App\Models\OpenReply;
 class TeleBot extends Controller
 {
 
-    public $commands_withouth_agrs = ["start", "list", "subscribe_parteien_all_wahlkreise", "subscribe_parteien_all_gemeinden", "unsubscribe_all", "wahlkreise", "parteien", "kandis"];
-    public $commands_with_args_helper = [
+    public $commands_withouth_agrs = ["start", "list", "subscribe_parteien_all_wahlkreise", "subscribe_parteien_all_gemeinden", "unsubscribe_all", "wahlkreise", "gemeinden", "parteien", "kandis"];
+    public $commands_with_args_helper =
+    [
         "help" => <<<EOD
         Zu welcher Art von Updates möchtest du Hilfe?
         Schreibe "Kandis" für Hilfe zu den Kandidat*innenupdates.
@@ -32,6 +33,10 @@ class TeleBot extends Controller
         "subscribe_kandis_wahlkreis" => "Ok! Schreib mir bitte den Namen des Wahlkreises, von dem du die Kandidat*innen abonnieren möchtest. (Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
         "subscribe_kandis_partei" => "Ok! Schreib mir bitte den Namen der Partei, von der du die Kandidat*innen abonnieren möchtest. (Schreib /parteien, um die Namen der Parteien zu sehen.)",
         "subscribe_kandis_partei_wahlkreis" => "Ok! Schreib mir bitte den Namen der Partei und des Wahlkreises, von dem du die Kandidat*innen abonnieren möchtest. (Schreib /parteien, um die Namen der Parteien zu sehen. Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
+        "subscribe_kandi_gemeinde" => "Ok! Schreib mir bitte die Kandinummer und die Nummer der Gemeinde, von der du die Kandidat*innen abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen. Nutze /find_kandi VORNAME NACHNAME um die Kandinummer zu finden.)",
+        "subscribe_kandi_gemeinde_all" => "Ok! Schreib mir bitte die Kandinummer zu denen ich die Updates in allen Gemeinden schicken soll. (Nutze /find_kandi VORNAME NACHNAME um die Kandinummer zu finden.)",
+        "subscribe_kandis_gemeinde" => "Ok! Schreib mir bitte die Nummer der Gemeinde, von der du die Kandidat*innenresultate abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)",
+        "find_kandi" => "Schreib mir bitte den Kandi-Namen wie er auf dem Wahlzettel steht",
         "subscribe_parteien_wahlkreis" => "Ok! Schreib mir bitte den Namen des Wahlkreises, von dem du die Parteiresultate abonnieren möchtest. (Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
         "subscribe_parteien_gemeinde" => "Ok! Schreib mir bitte die Nummer der Gemeinde, von der du die Parteiresultate abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)"
     ];
@@ -133,6 +138,16 @@ class TeleBot extends Controller
             /subscribe_kandis_partei PARTEI - Abonniere Updates für alle Kandis einer Partei (z.B. /subscribe_kandis_partei SP).
 
             /subscribe_kandis_partei_wahlkreis PARTEI WAHLKREIS - Abonniere Updates für alle Kandis einer Partei in einem Wahlkreis (z.B. /subscribe_kandis_partei_wahlkreis SP Zürich 1&2).
+
+            /subscribe_kandi_gemeinde KANDI_ID GEMEINDE_ID - Abonniere Updates für ein Kandiresultat in einer Gemeinde
+
+            /subscribe_kandi_gemeinde_all KANDI_ID - Abonniere Updates für Kandiresultate in allen Gemeinden der Kandidat*in
+
+            /subscribe_kandis_gemeinde GEMEINDE_ID - Abonniere Updates für alle Kandiresultate in einer Gemeinde
+
+            /find_kandi VORNAME NACHNAME - Finde Kandis (z.B. /find_kandi Peter Müller).
+
+            Für diese Wahlen ist es leider nicht möglich, Updates für alle Kandis in einer Gemeinde zu abonnieren. Sorry 🙈 mein Entwickler hatte schlicht keine Zeit mehr, das zu implementieren.
             EOD,
             "parteien" => <<<EOD
             Hier sind meine Befehle zu Parteiresultaten:
@@ -214,7 +229,12 @@ class TeleBot extends Controller
                     $text = "";
                     for ($j = 0; $j < 10; $j++) {
                         if (isset($politicians[$j + $i * 10])) {
-                            $text .= $politicians[$j + $i * 10]->name . ", " . $politicians[$j + $i * 10]->party->abbreviation . " (entfernen mit /unsubscribe_{$politicians[$j + $i * 10]->politician_id})\n";
+                            $currentPolitician = $politicians[$j + $i * 10];
+                            if ($currentPolitician->municipal) {
+                                $text .= "{$currentPolitician->name}, Gemeinde {$currentPolitician->municipality->name}, {$currentPolitician->party->abbreviation} (entfernen mit /unsubscribe_{$currentPolitician->politician_id})\n";
+                            } else {
+                                $text .= "{$currentPolitician->name}, Wahlkreis {$currentPolitician->constituency->name}, {$currentPolitician->party->abbreviation} (entfernen mit /unsubscribe_{$currentPolitician->politician_id})\n";
+                            }
                         } else {
                             break;
                         }
@@ -265,16 +285,20 @@ class TeleBot extends Controller
     public function subscribe_nr($content, $chat_id)
     {
         $politician = PoliticianResult::where('politician_id', $content)->get();
-        if ($politician && count($politician) == 1) {
+        if ($politician && count($politician) > 0) {
             $politician = $politician->first();
             $added = $politician->addChatInterested($chat_id);
             if (!$added) {
                 $this->send_message($chat_id, "{$politician->name} ist bereits auf deiner Liste. Falls du die Kandi von der Liste entfernen willst, schreibe /unsubscribe_{$politician->politician_id}.");
             } else {
-                $this->send_message($chat_id, "Ich habe {$politician->name} von der Liste " . substr($politician->party_id, 5) . " ({$politician->party->name}) gefunden. Ich werde dich zu dieser*diesem Kandi auf dem Laufenden halten.");
+                if ($politician->municipal) {
+                    $this->send_message($chat_id, "Ich habe {$politician->name} von der Liste " . substr($politician->party_id, 5) . " ({$politician->party->name}) in der Gemeinde {$politician->municipality->name} gefunden. Ich werde dich zu diesen Kandiresultaten auf dem Laufenden halten.");
+                } else {
+                    $this->send_message($chat_id, "Ich habe {$politician->name} von der Liste " . substr($politician->party_id, 5) . " ({$politician->party->name}) im Wahlkreis {$politician->constituency->name} gefunden. Ich werde dich zu diesen Kandiresultaten auf dem Laufenden halten.");
+                }
             }
             return;
-        } else if ($politician && count($politician) == 0) {
+        } else {
             $this->send_message($chat_id, <<<EOD
             Ich habe leider keinen Kandi mit dieser Kandinummer gefunden. Bitte prüfe kurz auf Tippfehler. Wenn du die Kandi über ihren Namen suchen willst, kannst du das mit dem Befehl <b>/kandi NAME</b> tun.
 
@@ -283,9 +307,6 @@ class TeleBot extends Controller
             Schreib /help um zu sehen, was ich kann.
             EOD
             );
-            return;
-        } else {
-            $this->send_message($chat_id, "Huups, da ist wohl etwas schief gelaufen. Schreib /help um zu sehen, was ich kann.");
             return;
         }
     }
@@ -347,6 +368,50 @@ class TeleBot extends Controller
         }
     }
 
+    public function subscribe_kandi_gemeinde($content, $chat_id)
+    {
+        $exploded = explode(" ", $content);
+        $politician_id = $exploded[0];
+        $municipality_id = $exploded[1];
+        $politician = PoliticianResult::where('politician_id', "{$municipality_id}_{$politician_id}")->first();
+        if ($politician) {
+            $politician->addChatInterested($chat_id);
+            $this->send_message($chat_id, "Ich habe den Kandidaten {$politician->name} aus der Gemeinde {$politician->municipality->name} gefunden. Ich werde dich zu den Resultaten dieses Kandidaten auf dem Laufenden halten.");
+            return;
+        } else {
+            $this->send_message($chat_id, "Ich habe leider keinen Kandidaten mit dieser Kandinummer in dieser Gemeinde gefunden. Schreib /help um zu sehen, was ich kann.");
+            return;
+        }
+    }
+
+    public function subscribe_kandi_gemeinde_all($content, $chat_id)
+    {
+        $politician_id = $content;
+        $politicians = PoliticianResult::where('politician_id', "LIKE", "%\_{$politician_id}")->where("municipal",true)->get();
+        if ($politicians) {
+            foreach ($politicians as $politician) {
+                $politician->addChatInterested($chat_id);
+            }
+            $this->send_message($chat_id, "Ich habe {$politician->name} aus dem Wahlkreis {$politicians->first()->constituency->name} gefunden. Ich werde dich zu den Kandiresultaten aus allen Gemeinden auf dem Laufenden halten.");
+            return;
+        } else {
+            $this->send_message($chat_id, "Ich habe leider keinen Kandidaten mit dieser Kandinummer in allen Gemeinden gefunden. Schreib /help um zu sehen, was ich kann.");
+            return;
+        }
+    }
+
+    public function find_kandi($content, $chat_id)
+    {
+        $politician = PoliticianResult::where('name', "LIKE", "%{$content}%")->first();
+        if ($politician) {
+            $this->send_message($chat_id, "Ich habe {$politician->name} aus dem Wahlkreis {$politician->constituency->name} gefunden.\n\nDie Nummer lautet <b>{$politician->politician_id}</b>.\n\nSchreib /subscribe_kandi_{$politician->politician_id} um über diese Resultate auf dem Laufenden gehalten zu werden.");
+            return;
+        } else {
+            $this->send_message($chat_id, "Ich habe leider keinen Kandidaten mit dieser Kandinummer gefunden. Schreib /help um zu sehen, was ich kann.");
+            return;
+        }
+    }
+
     public function subscribe_parteien_wahlkreis($content, $chat_id)
     {
         $constituency = Constituency::where('name', 'LIKE', '%' . $content . '%')->first();
@@ -401,14 +466,31 @@ class TeleBot extends Controller
 
     public function unsubscribe($content, $chat_id)
     {
-        $politician = PoliticianResult::where('politician_id', $content)->get();
-        if ($politician && count($politician) == 1) {
-            $politician = $politician->first();
-            $removed = $politician->removeChatInterested($chat_id);
-            if (!$removed) {
-                $this->send_message($chat_id, "Du hast {$politician->name} noch nicht auf deiner Liste. Falls du die Kandi hinzufügen willst, schreibe /subscribeNr_{$politician->politician_id}.");
-            } else {
-                $this->send_message($chat_id, "Ich habe {$politician->name} von deiner Liste entfernt.");
+        $politicianConstituency = PoliticianResult::where('politician_id', $content)->get();
+        $politicianMunicipality = PoliticianResult::where('politician_id', "LIKE", "%\_$content")->get();
+        $politician = $politicianConstituency->merge($politicianMunicipality);
+        if ($politician) {
+            if (count($politician) > 1) {
+                foreach ($politician as $politician) {
+                    $removed = $politician->removeChatInterested($chat_id);
+                }
+                if ($removed) {
+                    $this->send_message($chat_id, "Ich habe alle abonnierten Resultate von {$politician->name} von deiner Liste entfernt.");
+                } else {
+                    $this->send_message($chat_id, "Ich konnte keine Resultate von {$politician->name} in diesem Gebiet auf deiner Liste finden.");
+                }
+            } else if (count($politician) == 1) {
+                $politician = $politician->first();
+                $removed = $politician->removeChatInterested($chat_id);
+                if ($removed) {
+                    if ($politician->municipal) {
+                        $this->send_message($chat_id, "Ich habe die Resultate von {$politician->name} in der Gemeinde {$politician->municipality->name} von deiner Liste entfernt.");
+                    } else {
+                        $this->send_message($chat_id, "Ich habe die Resultate von {$politician->name} im Wahlkreis {$politician->constituency->name} von deiner Liste entfernt.");
+                    }
+                } else {
+                    $this->send_message($chat_id, "Ich konnte keine Resultate von {$politician->name} in diesem Gebiet auf deiner Liste finden.");
+                }
             }
             return;
         } else if ($politician && count($politician) == 0) {
