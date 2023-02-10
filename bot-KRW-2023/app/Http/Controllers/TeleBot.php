@@ -78,7 +78,7 @@ class TeleBot extends Controller
     }
 
     public function handle_command($message) {
-        $firstColon = strpos($message["text"], ":");
+        $firstUnderline = strpos($message["text"], "_");
         $firstSpace = strpos($message["text"], " ");
         if ((($firstColon < $firstSpace) || $firstSpace == false) && $firstColon != false) {
             $commandLenght = $firstColon;
