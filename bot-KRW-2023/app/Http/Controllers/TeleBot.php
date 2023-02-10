@@ -167,7 +167,7 @@ class TeleBot extends Controller
 
             /start - Starte den Bot
 
-            /help - Zeige diese Hilfe
+            /help - Zeige den Hilfe Screen
 
             /unsubscribe_all - Deabonniere Updates für alle Kandis und Parteiresultate.
 
