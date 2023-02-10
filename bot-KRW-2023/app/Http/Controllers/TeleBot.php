@@ -17,7 +17,7 @@ use App\Models\OpenReply;
 class TeleBot extends Controller
 {
 
-    public $commands_withouth_agrs = ["start", "list", "subscribe_parteien_all_wahlkreise", "subscribe_parteien_all_gemeinden", "unsubscribe_all", "wahlkreise", "gemeinden", "parteien", "kandis"];
+    public $commands_withouth_agrs = ["start", "list", "subscribe_parteien_all_kreise", "subscribe_parteien_gemeinden", "unsubscribe_all", "wahlkreise", "gemeinden", "parteien", "kandis"];
     public $commands_with_args_helper =
     [
         "help" => <<<EOD
@@ -32,7 +32,7 @@ class TeleBot extends Controller
         "unsubscribe_parteien" => "Ok! Schreib mir bitte den Namen des Wahlkreis oder die Nummer der Gemeinde, von der du die Parteiresultate deabonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)",
         "subscribe_kandis_wahlkreis" => "Ok! Schreib mir bitte den Namen des Wahlkreises, von dem du die Kandidat*innen abonnieren möchtest. (Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
         "subscribe_kandis_partei" => "Ok! Schreib mir bitte den Namen der Partei, von der du die Kandidat*innen abonnieren möchtest. (Schreib /parteien, um die Namen der Parteien zu sehen.)",
-        "subscribe_kandis_partei_wahlkreis" => "Ok! Schreib mir bitte den Namen der Partei und des Wahlkreises, von dem du die Kandidat*innen abonnieren möchtest. (Schreib /parteien, um die Namen der Parteien zu sehen. Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
+        "subscribe_kandis_partei_kreis" => "Ok! Schreib mir bitte den Namen der Partei und des Wahlkreises, von dem du die Kandidat*innen abonnieren möchtest. (Schreib /parteien, um die Namen der Parteien zu sehen. Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
         "subscribe_kandi_gemeinde" => "Ok! Schreib mir bitte die Kandinummer und die Nummer der Gemeinde, von der du die Kandidat*innen abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen. Nutze /find_kandi VORNAME NACHNAME um die Kandinummer zu finden.)",
         "subscribe_kandi_gemeinde_all" => "Ok! Schreib mir bitte die Kandinummer zu denen ich die Updates in allen Gemeinden schicken soll. (Nutze /find_kandi VORNAME NACHNAME um die Kandinummer zu finden.)",
         "subscribe_kandis_gemeinde" => "Ok! Schreib mir bitte die Nummer der Gemeinde, von der du die Kandidat*innenresultate abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)",
@@ -137,7 +137,7 @@ class TeleBot extends Controller
 
             /subscribe_kandis_partei PARTEI - Abonniere Updates für alle Kandis einer Partei (z.B. /subscribe_kandis_partei SP).
 
-            /subscribe_kandis_partei_wahlkreis PARTEI WAHLKREIS - Abonniere Updates für alle Kandis einer Partei in einem Wahlkreis (z.B. /subscribe_kandis_partei_wahlkreis SP Zürich 1&2).
+            /subscribe_kandis_partei_kreis PARTEI WAHLKREIS - Abonniere Updates für alle Kandis einer Partei in einem Wahlkreis (z.B. /subscribe_kandis_partei_kreis SP Zürich 1&2).
 
             /subscribe_kandi_gemeinde KANDI_ID GEMEINDE_ID - Abonniere Updates für ein Kandiresultat in einer Gemeinde
 
@@ -156,9 +156,9 @@ class TeleBot extends Controller
 
             /subscribe_parteien_gemeinde GEMEINDE - Abonniere Updates für alle Parteien in einer Gemeinde (z.B. /subscribe_parteien_gemeinde Zürich).
 
-            /subscribe_parteien_all_wahlkreise - Abonniere Updates für alle Parteiresultate auf Ebene der Wahlkreise im ganzen Kanton.
+            /subscribe_parteien_all_kreise - Abonniere Updates für alle Parteiresultate auf Ebene der Wahlkreise im ganzen Kanton.
 
-            /subscribe_parteien_all_gemeinden - Abonniere Updates für alle Parteiresultate auf Ebene der Gemeinden im ganzen Kanton.
+            /subscribe_parteien_gemeinden - Abonniere Updates für alle Parteiresultate auf Ebene der Gemeinden im ganzen Kanton.
 
             /unsubscribe_parteien WAHLKREIS|GEMEINDE_ID - Deabonniere Updates für Parteiresultate in einem Wahlkreis oder einer Gemeinde (z.B. /unsubscribe_parteien Zürich 1&2).
             EOD,
@@ -343,11 +343,11 @@ class TeleBot extends Controller
         }
     }
 
-    public function subscribe_kandis_partei_wahlkreis($content, $chat_id)
+    public function subscribe_kandis_partei_kreis($content, $chat_id)
     {
         $exploded = explode(" ", $content);
         if (count($exploded) < 2) {
-            $this->send_message($chat_id, "Da ist etwas schief gelaufen. Um Kandis aus einem bestimmten Wahlkreis einer bestimmten Partei zu abonnieren, schreibe /subscribe_kandis_partei_wahlkreis PARTEI WAHLKREIS.\nSchreib /parteien, damit ich dir alle Parteien, die ich verwende, anzeige.\nSchreib /wahlkreise, damit ich dir alle Wahlkreise, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
+            $this->send_message($chat_id, "Da ist etwas schief gelaufen. Um Kandis aus einem bestimmten Wahlkreis einer bestimmten Partei zu abonnieren, schreibe /subscribe_kandis_partei_kreis PARTEI WAHLKREIS.\nSchreib /parteien, damit ich dir alle Parteien, die ich verwende, anzeige.\nSchreib /wahlkreise, damit ich dir alle Wahlkreise, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
             return;
         }
         $partyAbbreviation = $exploded[0];
@@ -400,6 +400,22 @@ class TeleBot extends Controller
         }
     }
 
+    public function subscribe_kandis_gemeinde($content, $chat_id)
+    {
+        $municipality = Municipality::where('id', $content)->first();
+        if ($municipality) {
+            $politicians = PoliticianResult::where('municipality_id', $municipality->id)->get();
+            foreach ($politicians as $politician) {
+                $politician->addChatInterested($chat_id);
+            }
+            $this->send_message($chat_id, "Ich habe die Gemeinde {$municipality->name} gefunden. Ich werde dich zu den Kandis dieser Gemeinde auf dem Laufenden halten.");
+            return;
+        } else {
+            $this->send_message($chat_id, "Ich habe leider keine Gemeinde mit diesem Namen gefunden. Schreib /gemeinden, damit ich dir alle Gemeinden, die ich verwende, anzeige. Schreib /help um zu sehen, was ich kann.");
+            return;
+        }
+    }
+
     public function find_kandi($content, $chat_id)
     {
         $politician = PoliticianResult::where('name', "LIKE", "%{$content}%")->first();
@@ -444,7 +460,7 @@ class TeleBot extends Controller
         }
     }
 
-    public function subscribe_parteien_all_wahlkreise($chat_id)
+    public function subscribe_parteien_all_kreise($chat_id)
     {
         $partyResults = PartyResult::where("party_id", "LIKE", "2023_%")->where("municipal", false)->get();
         foreach ($partyResults as $partyResult) {
@@ -454,7 +470,7 @@ class TeleBot extends Controller
         return;
     }
 
-    public function subscribe_parteien_all_gemeinden($chat_id)
+    public function subscribe_parteien_gemeinden($chat_id)
     {
         $partyResults = PartyResult::where("party_id", "LIKE", "2023_%")->where("municipal", true)->get();
         foreach ($partyResults as $partyResult) {
@@ -631,6 +647,10 @@ class TeleBot extends Controller
         if (method_exists($this, substr($text, 1))) {
             $commandInfo["command"] = substr($text, 1);
             $commandInfo["length"] = strlen($commandInfo["command"]);
+        }
+        if (method_exists($this, substr($text, 1, strpos($text, " ") - 1))) {
+            $commandInfo["command"] = substr($text, 1, strpos($text, " ") - 1);
+            $commandInfo["length"] = strpos($text, " ");
         }
         return $commandInfo;
     }
