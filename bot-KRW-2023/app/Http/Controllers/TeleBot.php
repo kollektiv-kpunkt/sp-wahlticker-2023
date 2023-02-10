@@ -28,7 +28,7 @@ class TeleBot extends Controller
         EOD,
         "subscribe" => "Ok! Gib mir bitte den Namen der Kandidat*in, die du abonnieren möchtest wie er auf dem Wahlzettel steht.",
         "subscribe_nr" => "Ok! Gib mir bitte die Nummer der Kandidat*in, die du abonnieren möchtest. Sie besteht aus der Nummer des Wahlkreises, der Listennummer und ihrem Listenplatz.",
-        "unsubscribe" => "Ok! Gib mir bitte die Nummer der Kandidat*in, die du deabonnieren möchtest. Sie besteht aus der Nummer des Wahlkreises, der Listennummer und ihrem Listenplatz.",
+        "unsubscribe" => "Ok! Gib mir bitte die Nummer der Kandidat*in, die du deabonnieren möchtest. Sie besteht aus der Nummer des Wahlkreises, der Listennummer und ihrem Listenplatz. Nutze /find_kandi VORNAME NACHNAME um die Kandinummer zu finden.",
         "unsubscribe_parteien" => "Ok! Schreib mir bitte den Namen des Wahlkreis oder die Nummer der Gemeinde, von der du die Parteiresultate deabonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)",
         "subscribe_kandis_wahlkreis" => "Ok! Schreib mir bitte den Namen des Wahlkreises, von dem du die Kandidat*innen abonnieren möchtest. (Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
         "subscribe_kandis_partei" => "Ok! Schreib mir bitte den Namen der Partei, von der du die Kandidat*innen abonnieren möchtest. (Schreib /parteien, um die Namen der Parteien zu sehen.)",
