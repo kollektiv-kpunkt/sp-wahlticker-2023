@@ -13,6 +13,7 @@ class OpenReply extends Model
         "command",
         "replied",
         "tele_chat_id",
+        "content",
     ];
 
     public $casts = [

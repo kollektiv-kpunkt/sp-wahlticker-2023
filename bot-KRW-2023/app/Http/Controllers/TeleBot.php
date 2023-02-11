@@ -681,12 +681,16 @@ class TeleBot extends Controller
         $command = $openReply->command;
         $openReply->replied = true;
         $openReply->save();
-        $this->$command($text, $chat_id);
+        if ($openReply->content) {
+            $this->$command($openReply->content, $chat_id, $text);
+        } else {
+            $this->$command($text, $chat_id);
+        }
     }
 
-    public function send_to_all($content, $chat_id)
+    public function send_to_all($content, $chat_id, $confirmation = "")
     {
-        if ($content == "YESIDO") {
+        if ($confirmation == "YESIDO") {
             $chats = TeleChat::all();
             foreach ($chats as $chat) {
                 $this->send_message($chat->chat_id, "Nachricht von @wahlbot:\n\n" . $content);
@@ -695,8 +699,9 @@ class TeleBot extends Controller
             return;
         }
         OpenReply::create([
-            'command' => "send_to_all {$content}",
+            'command' => "send_to_all",
             'tele_chat_id' => $chat_id,
+            "content" => $content,
         ]);
         $this->send_message($chat_id, "Are you sure you want to send the following message to " . count(TeleChat::all()) . " chats?");
         sleep(1);
