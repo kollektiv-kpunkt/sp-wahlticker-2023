@@ -39,7 +39,8 @@ class TeleBot extends Controller
         "subscribe_kandis_gemeinde" => "Ok! Schreib mir bitte die Nummer der Gemeinde, von der du die Kandidat*innenresultate abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)",
         "find_kandi" => "Schreib mir bitte den Kandi-Namen wie er auf dem Wahlzettel steht",
         "subscribe_parteien_wahlkreis" => "Ok! Schreib mir bitte den Namen des Wahlkreises, von dem du die Parteiresultate abonnieren möchtest. (Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
-        "subscribe_parteien_gemeinde" => "Ok! Schreib mir bitte die Nummer der Gemeinde, von der du die Parteiresultate abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)"
+        "subscribe_parteien_gemeinde" => "Ok! Schreib mir bitte die Nummer der Gemeinde, von der du die Parteiresultate abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)",
+        "query" => "Send query data RESULT_TYPE ?REGION_TYPE ?REGION_ID"
     ];
 
     public function webhook(Request $request)
@@ -615,35 +616,6 @@ class TeleBot extends Controller
             $this->send_message($chat_id, $text);
         }
         return;
-    }
-
-    public function unprepared($content, $chat_id)
-    {
-        if ($chat_id != env("ADMIN_CHAT_ID")) {
-            $this->send_message($chat_id, "Du hast keine Berechtigung, diesen Befehl auszuführen.");
-            return;
-        }
-        // dd($content);
-        $response = DB::select(DB::raw($content));
-        $maximal_textLength = 0;
-        $text = "<pre>";
-        foreach ($response as $row) {
-            $row = (array) $row;
-            foreach ($row as $key => $value) {
-                if (strlen($value) > $maximal_textLength) {
-                    $maximal_textLength = strlen($value);
-                }
-            }
-        }
-        foreach ($response as $row) {
-            $row = (array) $row;
-            foreach ($row as $key => $value) {
-                $row[$key] = str_pad($value, $maximal_textLength, " ", STR_PAD_RIGHT);
-            }
-            $text .= implode(" | ", $row) . "\n";
-        }
-        $text .= "</pre>";
-        $this->send_message($chat_id, $text);
     }
 
     public function determine_command($text)
