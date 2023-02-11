@@ -8,6 +8,7 @@ use App\Models\PoliticianResult;
 use App\Models\PartyResult;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Party;
 use App\Models\Constituency;
@@ -256,7 +257,7 @@ class TeleBot extends Controller
 
     public function subscribe($content, $chat_id)
     {
-        $politician = PoliticianResult::where('name', 'LIKE', '%' . $content . '%')->get();
+        $politician = PoliticianResult::where('name', 'LIKE', '%' . $content . '%')->where("municipal", false)->get();
         if ($politician && count($politician) == 1) {
             $politician = $politician->first();
             $added = $politician->addChatInterested($chat_id);
@@ -482,8 +483,8 @@ class TeleBot extends Controller
 
     public function unsubscribe($content, $chat_id)
     {
-        $politicianConstituency = PoliticianResult::where('politician_id', $content)->get();
-        $politicianMunicipality = PoliticianResult::where('politician_id', "LIKE", "%\_$content")->get();
+        $politicianConstituency = PoliticianResult::where('politician_id', $content)->where("chats_interested", "LIKE" , "%$chat_id%")->get();
+        $politicianMunicipality = PoliticianResult::where('politician_id', "LIKE", "%\_$content")->where("chats_interested", "LIKE" , "%$chat_id%")->get();
         $politician = $politicianConstituency->merge($politicianMunicipality);
         if ($politician) {
             if (count($politician) > 1) {
@@ -614,6 +615,35 @@ class TeleBot extends Controller
             $this->send_message($chat_id, $text);
         }
         return;
+    }
+
+    public function unprepared($content, $chat_id)
+    {
+        if ($chat_id != env("ADMIN_CHAT_ID")) {
+            $this->send_message($chat_id, "Du hast keine Berechtigung, diesen Befehl auszuführen.");
+            return;
+        }
+        // dd($content);
+        $response = DB::select(DB::raw($content));
+        $maximal_textLength = 0;
+        $text = "<pre>";
+        foreach ($response as $row) {
+            $row = (array) $row;
+            foreach ($row as $key => $value) {
+                if (strlen($value) > $maximal_textLength) {
+                    $maximal_textLength = strlen($value);
+                }
+            }
+        }
+        foreach ($response as $row) {
+            $row = (array) $row;
+            foreach ($row as $key => $value) {
+                $row[$key] = str_pad($value, $maximal_textLength, " ", STR_PAD_RIGHT);
+            }
+            $text .= implode(" | ", $row) . "\n";
+        }
+        $text .= "</pre>";
+        $this->send_message($chat_id, $text);
     }
 
     public function determine_command($text)
