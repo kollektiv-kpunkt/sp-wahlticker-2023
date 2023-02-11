@@ -17,7 +17,7 @@ use App\Models\OpenReply;
 
 class TeleBot extends Controller
 {
-
+    public $admin_commands = ["send_to_all"];
     public $commands_withouth_agrs = ["start", "list", "subscribe_parteien_all_kreise", "subscribe_parteien_gemeinden", "unsubscribe_all", "wahlkreise", "gemeinden", "parteien", "kandis"];
     public $commands_with_args_helper =
     [
@@ -40,7 +40,7 @@ class TeleBot extends Controller
         "find_kandi" => "Schreib mir bitte den Kandi-Namen wie er auf dem Wahlzettel steht",
         "subscribe_parteien_wahlkreis" => "Ok! Schreib mir bitte den Namen des Wahlkreises, von dem du die Parteiresultate abonnieren möchtest. (Schreib /wahlkreise, um die Namen der Wahlkreise zu sehen.)",
         "subscribe_parteien_gemeinde" => "Ok! Schreib mir bitte die Nummer der Gemeinde, von der du die Parteiresultate abonnieren möchtest. (Schreib /gemeinden, um die Nummern der Gemeinden zu sehen.)",
-        "query" => "Send query data RESULT_TYPE ?REGION_TYPE ?REGION_ID"
+        "send_to_all" => "Please provide the message you want to send to all subscribers."
     ];
 
     public function webhook(Request $request)
@@ -101,6 +101,10 @@ class TeleBot extends Controller
         $chat_id = $message['chat']['id'];
         $content = substr(stripslashes($message['text']), $commandLenght + 1);
         if (method_exists($this, $command)) {
+            if (in_array($command, $this->admin_commands) && env("ADMIN_CHAT_ID") != $chat_id) {
+                $this->send_message($chat_id, "I am sorry but I can't let you do that. 😉");
+                exit;
+            }
             if (in_array($command, $this->commands_withouth_agrs)) {
                 $this->$command($chat_id);
             } else if ($content == "") {
@@ -678,5 +682,26 @@ class TeleBot extends Controller
         $openReply->replied = true;
         $openReply->save();
         $this->$command($text, $chat_id);
+    }
+
+    public function send_to_all($content, $chat_id)
+    {
+        if ($content == "YESIDO") {
+            $chats = TeleChat::all();
+            foreach ($chats as $chat) {
+                $this->send_message($chat->chat_id, "Nachricht von @wahlbot:\n\n" . $content);
+            }
+            $this->send_message($chat_id, "Nachricht wurde an " . count($chats) . " Chats gesendet.");
+            return;
+        }
+        OpenReply::create([
+            'command' => "send_to_all {$content}",
+            'tele_chat_id' => $chat_id,
+        ]);
+        $this->send_message($chat_id, "Are you sure you want to send the following message to " . count(TeleChat::all()) . " chats?");
+        sleep(1);
+        $this->send_message($chat_id, $content);
+        sleep(1);
+        $this->send_message($chat_id, "If so, type YESIDO");
     }
 }
