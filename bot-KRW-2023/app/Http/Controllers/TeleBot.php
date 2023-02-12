@@ -476,7 +476,7 @@ class TeleBot extends Controller
         return;
     }
 
-    public function subscribe_parteien_gemeinden($chat_id)
+    public function subscribe_parteien_all_gemeinden($chat_id)
     {
         $partyResults = PartyResult::where("party_id", "LIKE", "2023_%")->where("municipal", true)->get();
         foreach ($partyResults as $partyResult) {
