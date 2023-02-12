@@ -72,7 +72,7 @@ class ResultController extends Controller
         foreach($municipality["resultat"]["listen"] as $partyResult) {
             echo("Updating " . $municipality["geoLevelname"] . " " . $partyResult["listeCode"] . PHP_EOL);
             $partyResultModel = PartyResult::where("party_id", "2023_" . $partyResult["listeNummer"])->where("municipality_id", $municipality["geoLevelnummer"])->where("municipal", true)->first();
-            $partyResultModel->votes = $partyResult["waehler"];
+            $partyResultModel->votes = (int)$partyResult["waehler"];
             $partyResultModel->voteShare = round($partyResult["waehlerProzent"],2);
             $partyResultModel->voteShare_change = round($partyResult["gewinnWaehlerProzent"],2);
             $partyResultModel->save();
@@ -116,7 +116,7 @@ class ResultController extends Controller
         foreach($constituency["resultat"]["listen"] as $partyResult) {
             echo("Updating " . $constituency["wahlkreisBezeichnung"] . " " . $partyResult["listeCode"] . PHP_EOL);
             $partyResultModel = PartyResult::where("party_id", "2023_" . $partyResult["listeNummer"])->where("constituency_id", $constituency["wahlkreisNummer"])->where("municipal", false)->first();
-            $partyResultModel->votes = $partyResult["waehler"];
+            $partyResultModel->votes = (int)$partyResult["waehler"];
             $partyResultModel->voteShare = round($partyResult["waehlerProzent"],2);
             $partyResultModel->voteShare_change = round($partyResult["gewinnWaehlerProzent"],2);
             $partyResultModel->save();
@@ -151,8 +151,8 @@ class ResultController extends Controller
             $message_identifier = "municipality_politician_{$municipality["geoLevelnummer"]}_{$politician["kandidatNummer"]}";
             $politicianResultModel = PoliticianResult::where("politician_id", "{$municipality["geoLevelnummer"]}_{$politician["kandidatNummer"]}")->where("municipality_id", $municipality["geoLevelnummer"])->where("municipal", true)->first();
             $chats_interested = $politicianResultModel->chats_interested ?? [];
-            $politicianResultModel->votes = $politician["stimmen"];
-            $politicianResultModel->finalPosition = $politician["rangInListeInWahlkreis"];
+            $politicianResultModel->votes = (int)$politician["stimmen"];
+            $politicianResultModel->finalPosition = (int)$politician["rangInListeInWahlkreis"];
             $politicianResultModel->save();
             $scheduledMessages = [];
             foreach($chats_interested as $chat_interested) {
@@ -187,8 +187,8 @@ class ResultController extends Controller
             $message_identifier = "constituency_politician_{$politician["kandidatNummer"]}";
             $politicianResultModel = PoliticianResult::where("politician_id", "{$politician["kandidatNummer"]}")->where("constituency_id", $constituency["wahlkreisNummer"])->where("municipal", false)->first();
             $chats_interested = $politicianResultModel->chats_interested ?? [];
-            $politicianResultModel->votes = $politician["stimmen"];
-            $politicianResultModel->finalPosition = $politician["rangInListeInWahlkreis"];
+            $politicianResultModel->votes = (int)$politician["stimmen"];
+            $politicianResultModel->finalPosition = (int)$politician["rangInListeInWahlkreis"];
             $politicianResultModel->save();
             $scheduledMessages = [];
             foreach($chats_interested as $chat_interested) {
