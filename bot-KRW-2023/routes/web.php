@@ -40,8 +40,8 @@ Route::get("chiara", function () {
     $chiaraK12 = $json["kantone"][1]["vorlagen"][0]["zaehlkreise"][15]["resultat"]["kandidaten"][15];
     $chiaraWK = $json["kantone"][1]["vorlagen"][0]["wahlkreise"][5]["resultat"]["kandidaten"][15];
 
-    echo("K11: " . $chiaraK11["stimmen"] . " (Rang: " . $chiaraK11["rangInListeInWahlkreis"] . "% <br>)");
-    echo("K12: " . $chiaraK12["stimmen"] . " (Rang: " . $chiaraK12["rangInListeInWahlkreis"] . "% <br>) \n");
+    echo("K11: " . $chiaraK11["stimmen"] . " (Rang: " . $chiaraK11["rangInListeInWahlkreis"] . "%) <br>");
+    echo("K12: " . $chiaraK12["stimmen"] . " (Rang: " . $chiaraK12["rangInListeInWahlkreis"] . "%) <br> \n");
     echo("WK: " . $chiaraWK["stimmen"] . " (Rang: " . $chiaraWK["rangInListeInWahlkreis"] . "%) \n");
     return;
 });
