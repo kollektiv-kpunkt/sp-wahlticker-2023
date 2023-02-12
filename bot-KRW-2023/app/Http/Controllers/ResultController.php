@@ -74,15 +74,15 @@ class ResultController extends Controller
             $partyResultModel = PartyResult::where("party_id", "2023_" . $partyResult["listeNummer"])->where("municipality_id", $municipality["geoLevelnummer"])->where("municipal", true)->first();
             $partyResultModel->votes = $partyResult["waehler"];
             $partyResultModel->voteShare = $partyResult["waehlerProzent"];
-            $partyResultModel->voteShare_change = $partyResult["gewinnWaehlerProzent"];
+            $partyResultModel->voteShare_change = $partyResult["waehlerProzent"];
             $partyResultModel->save();
             foreach ($scheduledMessages as $scheduledMessage) {
                 $scheduledMessage->content .= <<<EOD
                 <b>{$partyResultModel->party->name}:</b>
                 ------
-                <em>Stimmen:</em> {$partyResultModel->votes}
-                <em>Stimmenanteil:</em> {$partyResultModel->voteShare}%
-                <em>Stimmenanteil Veränderung:</em> {$partyResultModel->voteShare_change}%
+                <em>Stimmen:</em> {$partyResult["waehler"]}
+                <em>Stimmenanteil:</em> {$partyResult["waehlerProzent"]}%
+                <em>Stimmenanteil Veränderung:</em> {$partyResult["waehlerProzent"]}%
 
 
                 EOD;
@@ -124,9 +124,9 @@ class ResultController extends Controller
                 $scheduledMessage->content .= <<<EOD
                 <b>{$partyResultModel->party->name}:</b>
                 ------
-                <em>Stimmen:</em> {$partyResultModel->votes}
-                <em>Stimmenanteil:</em> {$partyResultModel->voteShare}%
-                <em>Stimmenanteil Veränderung:</em> {$partyResultModel->voteShare_change}%
+                <em>Stimmen:</em> {$partyResult["waehler"]}
+                <em>Stimmenanteil:</em> {$partyResult["waehlerProzent"]}%
+                <em>Stimmenanteil Veränderung:</em> {$partyResult["gewinnWaehlerProzent"]}%
 
 
                 EOD;
@@ -161,9 +161,9 @@ class ResultController extends Controller
                     "message_identifier" => $message_identifier,
                     "content" => <<<EOD
                     Die Gemeinde {$municipality["geoLevelname"]} hat ihre Ergebnisse veröffentlicht. Hier das Ergenis von {$politicianResultModel->name}:
-                        <b>Stimmen:</b> {$politicianResultModel->votes}
+                        <b>Stimmen:</b> {$politician["stimmen"]}
                         <b>Listenplatz:</b> {$politicianResultModel->initialPosition}
-                        <b>Rang:</b> {$politicianResultModel->finalPosition}
+                        <b>Rang:</b> {$politician["rangInListeInWahlkreis"]}
                     EOD,
                 ]);
             }
@@ -197,9 +197,9 @@ class ResultController extends Controller
                     "message_identifier" => $message_identifier,
                     "content" => <<<EOD
                     Der Wahlkreis {$constituency["wahlkreisNummer"]} hat seine Ergebnisse veröffentlicht. Hier das Ergenis von {$politicianResultModel->name}:
-                        <b>Stimmen:</b> {$politicianResultModel->votes}
+                        <b>Stimmen:</b> {$politician["stimmen"]}
                         <b>Listenplatz:</b> {$politicianResultModel->initialPosition}
-                        <b>Rang:</b> {$politicianResultModel->finalPosition}
+                        <b>Rang:</b> {$politician["rangInListeInWahlkreis"]}
                     EOD,
                 ]);
             }
