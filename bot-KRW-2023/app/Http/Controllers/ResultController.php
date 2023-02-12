@@ -60,7 +60,7 @@ class ResultController extends Controller
             return;
         }
         $message_identifier = "municipality_{$municipality["geoLevelnummer"]}_parties";
-        $chats_interested = PartyResult::where("municipality_id", $municipality["geoLevelnummer"])->where("municipal", true)->where("party_id", "LIKE", "2023_%")->first()->chats_interested;
+        $chats_interested = PartyResult::where("municipality_id", $municipality["geoLevelnummer"])->where("municipal", true)->where("party_id", "LIKE", "2023_%")->first()->chats_interested ?? [];
         $scheduledMessages = [];
         foreach($chats_interested as $chat_interested) {
             $scheduledMessages[] = ScheduledMessage::firstOrNew([
@@ -104,7 +104,7 @@ class ResultController extends Controller
             return;
         }
         $message_identifier = "constituency_{$constituency["wahlkreisNummer"]}_parties";
-        $chats_interested = PartyResult::where("constituency_id", $constituency["wahlkreisNummer"])->where("municipal", false)->where("party_id", "LIKE", "2023_%")->first()->chats_interested;
+        $chats_interested = PartyResult::where("constituency_id", $constituency["wahlkreisNummer"])->where("municipal", false)->where("party_id", "LIKE", "2023_%")->first()->chats_interested ?? [];
         $scheduledMessages = [];
         foreach($chats_interested as $chat_interested) {
             $scheduledMessages[] = ScheduledMessage::firstOrNew([
