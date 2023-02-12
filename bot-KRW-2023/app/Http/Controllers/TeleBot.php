@@ -18,7 +18,7 @@ use App\Models\OpenReply;
 class TeleBot extends Controller
 {
     public $admin_commands = ["send_to_all"];
-    public $commands_withouth_agrs = ["start", "list", "subscribe_parteien_all_kreise", "subscribe_parteien_gemeinden", "unsubscribe_all", "wahlkreise", "gemeinden", "parteien", "kandis"];
+    public $commands_withouth_agrs = ["start", "list", "subscribe_parteien_all_kreise", "subscribe_parteien_all_gem", "unsubscribe_all", "wahlkreise", "gemeinden", "parteien", "kandis"];
     public $commands_with_args_helper =
     [
         "help" => <<<EOD
@@ -476,7 +476,7 @@ class TeleBot extends Controller
         return;
     }
 
-    public function subscribe_parteien_gemeinden($chat_id)
+    public function subscribe_parteien_all_gem($chat_id)
     {
         $partyResults = PartyResult::where("party_id", "LIKE", "2023_%")->where("municipal", true)->get();
         foreach ($partyResults as $partyResult) {
