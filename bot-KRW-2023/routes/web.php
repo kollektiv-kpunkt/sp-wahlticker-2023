@@ -25,3 +25,23 @@ Route::match(['get', 'post'], '/', function () {
     }
     $telebot->webhook(request());
 });
+
+
+Route::get("chiara", function () {
+    $file = Http::withOptions([
+        'verify' => false,
+    ])->withHeaders([
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json',
+    ])->get(env("FILE_URL"))->body();
+    $json = json_decode($file, true);
+
+    $chiaraK11 = $json["kantone"][1]["vorlagen"][0]["zaehlkreise"][14]["resultat"]["kandidaten"][15];
+    $chiaraK12 = $json["kantone"][1]["vorlagen"][0]["zaehlkreise"][15]["resultat"]["kandidaten"][15];
+    $chiaraWK = $json["kantone"][1]["vorlagen"][0]["wahlkreise"][5]["resultat"]["kandidaten"][15];
+
+    echo("K11: " . $chiaraK11["stimmen"] . " (Rang: " . $chiaraK11["rangInListeInWahlkreis"] . "%) \n");
+    echo("K12: " . $chiaraK12["stimmen"] . " (Rang: " . $chiaraK12["rangInListeInWahlkreis"] . "%) \n");
+    echo("WK: " . $chiaraWK["stimmen"] . " (Rang: " . $chiaraWK["rangInListeInWahlkreis"] . "%) \n");
+    return;
+});
